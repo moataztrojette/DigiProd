@@ -18856,3 +18856,51 @@ dl li {
 .ul_fac  li:nth-child(4){
   width: 10em;
 }
+.ul_fac{
+  font-weight: bold;
+}
+
+
+
+
+.title_devis li{
+  
+  list-style: none;
+  font-size:large;
+  width: 30%;
+}
+.title_devis ul{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+}
+
+
+
+
+.content_devis{
+  overflow: hidden;
+  background-color: var(--light);
+  border-radius: 20px;
+  padding: 1em;
+  align-items: center;
+}
+.content_devis li:first-child{
+  color: #56B8D2;
+}
+.content_devis li:nth-child(3){
+  font-weight: 600;
+  
+}
+.content_devis li:nth-child(2){
+  font-size: 15px;
+}
+
+
+
+
+.content_devis li{
+  overflow: hidden;
+  
+  
+}

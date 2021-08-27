@@ -7,21 +7,21 @@ import { Link } from 'react-router-dom';
 
 
 import "react-toastify/dist/ReactToastify.css";
-const Facture = (props) => {
+const Devis = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
     const [valuesInput, setValues] = useState({});
-    const[facture,setFacture]= useState([])
+    const[devis,setDevis]= useState([])
     const [client,setClient] = useState([])
-    const [dateFacture,setDateFacture] = useState([])
+    const [dateDevis,setDateDevis] = useState([])
     
     
 
     useEffect(()=>{
-        const data = axios.get("http://localhost:4000/api/facture/findall").then((fact)=>{
-          setFacture(fact.data)
+        const data = axios.get("http://localhost:4000/api/devis/findall").then((devis)=>{
+            setDevis(devis.data)
 
-          axios.get("http://localhost:4000/api/facture/finddate").then((date)=>{
-            setDateFacture(date.data)
+          axios.get("http://localhost:4000/api/devis/finddate").then((date)=>{
+            setDateDevis(date.data)
           })
 
           axios.get("http://localhost:4000/api/client/findall").then((cl)=>{
@@ -31,7 +31,7 @@ const Facture = (props) => {
 
               setValues({
                 client : cli,
-                etatfacture : "entrant",
+                etatDevis : "entrant",
               })
             }
             setClient(cl.data)
@@ -57,52 +57,48 @@ const Facture = (props) => {
 
     const handleFormSubmit = async(event)=>{
             event.preventDefault()
-            const data =await axios.post("http://localhost:4000/api/facture/post",valuesInput)
+            const data =await axios.post("http://localhost:4000/api/devis/post",valuesInput)
 
-            toast("Facture a été ajouter avec success ", {
+            toast("Devis a été ajouter avec success ", {
                 type: "success",
               });
-              const preventState = facture
+              const preventState = devis
               preventState.push(data.data)
-              setFacture(preventState)
-        
-
-
-
+              setDevis(preventState)
     }
 
-    const deletedFacture = async (id)=>{
+    const deletedDevis = async (id)=>{
 
-        await axios.delete("http://localhost:4000/api/facture/delete/" + id)
+        await axios.delete("http://localhost:4000/api/devis/delete/" + id)
         .then((verife)=>{
           if(verife.status !== 200){
             Swal.fire("Deleted!", "Your file has been deleted.", "error");
           }
           else{
-            const preventStatu = facture
-            const newState = preventStatu.filter((fact)=> fact._id !=  id)
-            setFacture(newState)
-            Swal.fire("Facture", "Facture a été supprimé", "success");
+            const preventStatu = devis
+            const newState = preventStatu.filter((dev)=> dev._id !=  id)
+            setDevis(newState)
+            Swal.fire("Devis", "Devis a été supprimé", "success");
           }
         })
       }
 
       const Filteritems = async (event)=>{
         if(event.target.value === 'all'){
-          axios.get("http://localhost:4000/api/facture/findall").then((res) => {
-            setFacture(res.data);
+          axios.get("http://localhost:4000/api/devis/findall").then((res) => {
+            setDevis(res.data);
         });
         }
         else{
-          const filter = await axios.get("http://localhost:4000/api/facture/filter/"+ event.target.value)
-          setFacture(filter.data)
+          const filter = await axios.get("http://localhost:4000/api/devis/filter/"+ event.target.value)
+          setDevis(filter.data)
         }
        
       }
     
-      const FilteritemsEtatRecu = async (event)=>{
-          const filter = await axios.get("http://localhost:4000/api/facture/filter/etatfacture/"+ event.target.value)
-          setFacture(filter.data)
+      const FilteritemsEtatDevis = async (event)=>{
+          const filter = await axios.get("http://localhost:4000/api/devis/filter/etatdevis/"+ event.target.value)
+          setDevis(filter.data)
        
       }
 
@@ -130,12 +126,12 @@ const Facture = (props) => {
           }}
         >
           <div className="auth-form-light text-left p-4">
-            <h3 className="font-weight-light">Ajouter un Nouvelle Facture</h3>
+            <h3 className="font-weight-light">Ajouter un Devis</h3>
             <br />
             <form className="pt-3" onSubmit={handleFormSubmit} 
 >
               <div className="form-group">
-                <h5 className="auth-link text-black"> Selectionner client</h5>
+                <h5 className="auth-link text-black"> Société</h5>
                 <select
                   className="select_categorie"
                   name="client"
@@ -146,7 +142,7 @@ const Facture = (props) => {
                   ))}
                   </select>
               </div>
-              <h5 className="auth-link text-black">Description du produit /service </h5>
+              <h5 className="auth-link text-black">produit/service </h5>
 
               <div className="form-group">
               <input
@@ -173,26 +169,15 @@ const Facture = (props) => {
                 />
               </div>
               
-              <div className="form-group">
-                <h5 className="auth-link text-black"> Prix</h5>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="exampleInputUsername2"
-                  name="prix"
-                  required
-                  placeholder="Prix"
-                  onChange={MyValueInput}
-                />
-              </div>
+             
          
 
-              <h5 className="auth-link text-black">État Facture </h5>
+              <h5 className="auth-link text-black">État Devis </h5>
 
               <div className="form-group">
                 <select
                   className="select_categorie"
-                  name="etatfacture"
+                  name="etatDevis"
                   onChange={MyValueInput}
                 >
                   <option value="entrant">entrant</option>
@@ -201,7 +186,7 @@ const Facture = (props) => {
               </div>
 
               <div className="form-group">
-                <h5 className="auth-link text-black"> Facture</h5>
+                <h5 className="auth-link text-black"> Devis</h5>
                 <input
                   type="file"
                   className="form-control"
@@ -248,29 +233,13 @@ const Facture = (props) => {
     <div className="title_categorie_icons">
     <h3>Finances</h3>
     <i class="mdi mdi-chevron-right"></i>
-<h3>Factures</h3>
+<h3>Devis</h3>
     <img src="./image/icons/Ellipse206.png" style={{width:"15px",height:"15px"}}></img>
     </div>
   </div>
   <div className="serhceInput">
-          <button className="btn_filter" value="entrant" onClick={FilteritemsEtatRecu} >Factures entrants</button>
-          <button className="btn_filter" value="sortant" onClick={FilteritemsEtatRecu} >Factures sortants</button>
-  </div>
-
-  
-</div>
-<div className="image_facture">
-  <img src="/image/facture/Groupe934.png" className="image_fac" ></img>
-  </div>    
-
-   <div className="serhceInput" style={{
-     marginTop:15
-   }}>
-
-         
-  <div className="select" style={{
-    marginLeft:"70%"
-  }}  >
+          <button className="btn_filter" value="entrant" onClick={FilteritemsEtatDevis} >Devis entrants</button>
+          <button className="btn_filter" value="sortant" onClick={FilteritemsEtatDevis} >Devis sortants</button>
           <select
           style={{
             marginRight:10
@@ -282,39 +251,48 @@ const Facture = (props) => {
                 >
 
                     <option value="all">Date</option>
-                {dateFacture.map((factDate)=>(
-                 <option value={factDate}>{factDate}</option>
+                {dateDevis.map((DevisDate)=>(
+                 <option value={DevisDate}>{DevisDate}</option>
                 ))}  
                 
                        </select>
 
+                       <button type="button" onClick={() => setModalIsOpen(true)}
+ className="btn btn-primary-color_inv" >Nouveau devis  + </button>
 
-           
-    <button type="button" onClick={() => setModalIsOpen(true)}
- className="btn btn-primary-color_inv" >Nouvelle Facture + </button>
+  </div>
 
 
-          </div>
+
+
+  
+</div>
+   
+
+   <div className="serhceInput" style={{
+     marginTop:15
+   }}>
+
+         
+ 
 
   </div>
 
       <div className="row">
 
-      {facture.length>0  ? <div className="title_facture">
+      {devis.length>0  ? <div className="title_devis">
     <ul className="ul_fac">
-        <li>Client (pour)</li>
-        <li>Description du produit / service</li>
-        <li>Prix</li>
-        <li>Date d'échéance</li>
+        <li>Societé</li>
+        <li>produit/service</li>
+        <li>Date</li>
         <li></li>
     </ul>
 
-     {facture.map((fact)=>(
-        <ul class="content_Facture" key={fact._id}>
-        <li>{fact.client.nomSociete}</li>
-        <li>{fact.description}</li>
-        <li>{fact.prix}DT</li>
-        <li>{fact.date}</li>
+     {devis.map((dev)=>(
+        <ul class="content_devis" key={devis._id}>
+        <li>{dev.client.nomSociete}</li>
+        <li>{dev.description}</li>
+        <li>{dev.date}</li>
         <div style={{marginBottom:15,marginRight:15}}>
         <img src="/image/facture/down-arrow.png" style={{
           marginRight:12
@@ -330,7 +308,7 @@ const Facture = (props) => {
                         confirmButtonText: "Oui, supprimez-le!",
                       }).then((result) => {
                         if (result.value) {
-                          deletedFacture(fact._id);
+                          deletedDevis(dev._id);
                         }
                       });
                     }}
@@ -352,4 +330,4 @@ const Facture = (props) => {
   );
 };
 
-export default Facture;
+export default Devis;

@@ -10,6 +10,7 @@ module.exports.post = async (req,res)=>{
         date : req.body.date,
         prix : req.body.prix,
         etatfacture : req.body.etatfacture,
+        file : req.body.file
     })
     await newFacture.save()
     const pop = await  factures.populate(newFacture,{ path : 'client'})

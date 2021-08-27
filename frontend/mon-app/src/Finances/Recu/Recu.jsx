@@ -185,7 +185,7 @@ const Recu = (props) => {
               </div>
 
               <div className="form-group">
-              <h5 className="auth-link text-black">Fichier pdf </h5>
+              <h5 className="auth-link text-black">Reçu pdf </h5>
 
               <input
                 type="file"

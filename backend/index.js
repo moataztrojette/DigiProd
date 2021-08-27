@@ -18,6 +18,10 @@ const client = require('./routes/client.route')
 const calendar = require('./routes/calendrier.route')
 const recu = require("./routes/recu.route")
 const facture = require("./routes/facture.route")
+const devis = require("./routes/devis.route")
+
+
+
 
 const { use } = require("./routes/categorieArticle.route");
 env.config()
@@ -44,6 +48,8 @@ app.use('/api/client',client)
 app.use('/api/calendar',calendar)
 app.use('/api/recu',recu)
 app.use('/api/facture',facture)
+app.use('/api/devis',devis)
+
 
 
 app.listen(4000, () => {

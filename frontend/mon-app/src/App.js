@@ -15,6 +15,7 @@ import Client from "./Projet/Client/Client.jsx";
 import Calendrier from "./Projet/Calendrier/Calendrier.jsx";
 import Recu from"./Finances/Recu/Recu"
 import Facture from "./Finances/Facture/Facture.jsx";
+import Devis from "./Finances/Devis/Devis.jsx";
 
 
 
@@ -45,6 +46,8 @@ function App() {
             <Route path="/calendrier" component={Calendrier} />
             <Route path="/recu" component={Recu}/>
             <Route path="/facture" component={Facture}/>
+            <Route path="/devis" component={Devis}/>
+
 
 
            

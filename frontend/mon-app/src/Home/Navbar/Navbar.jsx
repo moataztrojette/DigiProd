@@ -18,7 +18,7 @@ const Navbar = (props) => {
       <li className="nav-item nav-profile dropdown">
         <a className="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
           <div className="nav-profile-img">
-            <img src="/image/dashboard/iconUser.png" alt="image" />
+            <img src="/image/dashboard/Groupe165.png" alt="image" />
             <span className="availability-status online" />
           </div>
         </a>

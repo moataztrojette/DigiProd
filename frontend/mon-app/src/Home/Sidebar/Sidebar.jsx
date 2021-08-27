@@ -85,7 +85,7 @@ const Sidebar = () => {
                 <li className="nav-item"> <Link to={'/facture'} className="nav-link" href="#"> Factures </Link></li>
                 <li className="nav-item"> <Link to={'/recu'} className="nav-link" href="#"> Recu </Link></li>
                 <li className="nav-item"> <Link to ={'/devis'} className="nav-link" href="#"> Devis </Link></li>
-                <li className="nav-item"> <a className="nav-link" href="#"> Bon de commande </a></li>
+                <li className="nav-item"> <Link to ={'/commande'} className="nav-link" href="#"> Bon de commande </Link></li>
               </ul>
             </div>
           </li>

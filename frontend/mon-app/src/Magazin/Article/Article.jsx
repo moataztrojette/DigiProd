@@ -7,86 +7,24 @@ import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 const Article = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [valuesInput, setValues] = useState({
-  });
-  const [depot,setDepot] = useState([])
+  const [valuesInput, setValues] = useState({});
 
   const [allArticle, setArticle] = useState([]);
-  const[categorie,setCategorie] = useState([]);
-
-  const MyValueInput = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.value;
-    setValues(res);
-  };
-
-  const uploadToState = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.files[0];
-    setValues(res);
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("nomArticle", valuesInput.nomArticle);
-    formData.append("categorieArticle", valuesInput.categorieArticle);
-    formData.append("quantite", valuesInput.quantite);
-    formData.append("localisation", valuesInput.localisation);
-    formData.append("statut", valuesInput.statut);
-    formData.append("imageArticle", valuesInput.imageArticle);
-
-
-    const data = await axios.post(
-      "http://localhost:4000/api/article/post",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-
-    toast("Article a été ajouter avec success ", {
-      type: "success",
-    });
-    const prevStateArt = allArticle;
-    prevStateArt.push(data.data);
-    setArticle(prevStateArt);
-  };
-
+  const[categorie,setCategorie] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:4000/api/article/findall").then((Art) => {
-      setArticle(Art.data);
-    });
+    axios.get("http://localhost:4000/api/article/findall").then((res) => {
+      setArticle(res.data);
 
     axios.get("http://localhost:4000/api/categorie/findall").then((cat)=>{
       if(cat.data[0]){
-        let  cate = cat.data[0]._id
-      
-      axios.get("http://localhost:4000/api/depot/findall").then((depo)=>{
-        if(depo.data[0]){
-            let loca = depo.data[0]._id
-            
         setValues({
-          localisation : loca,
-          categorieArticle : cate,
-          statut : "enlocation"
-        })
-        setDepot(depo.data)
-
+          categorieArticle : cat.data[0]._id
+        })  
+      }  
       setCategorie(cat.data)
-
-      }});
-
-    }});
-  
-
-    
-    
-  
+    })
+    });
   }, []);
-
 
 
 
@@ -122,44 +60,28 @@ const Article = (props) => {
    
   };
 
+  const MyValueInput = (event) => {
+    let res = valuesInput;
+    res[event.target.name] = event.target.value;
+    setValues(res);
+  };
 
-  const Filteritems = async (event)=>{
-    if(event.target.value === 'all'){
-      axios.get("http://localhost:4000/api/article/findall").then((res) => {
-        setArticle(res.data);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const data = await axios.post(
+      "http://localhost:4000/api/article/post",
+      valuesInput
+    );
+    toast("Article a été ajouter avec success ", {
+      type: "success",
     });
-    }
-    else{
-      const filter = await axios.get("http://localhost:4000/api/article/filter/"+ event.target.value)
-      setArticle(filter.data)
-    }
-   
-  }
-
-
-
-  const FilteritemsDepot = async (event)=>{
-    if(event.target.value === 'all'){
-      axios.get("http://localhost:4000/api/article/findall").then((res) => {
-        setArticle(res.data);
-    });
-    }
-    else{
-      const filterDep = await axios.get("http://localhost:4000/api/article/filterdepot/"+ event.target.value)
-      setArticle(filterDep.data)
-    }
-   
-  }
-
-
-
-  
+    const prevStateArt = allArticle;
+    prevStateArt.push(data.data);
+    setArticle(prevStateArt);
+  };
 
   return (
     <div>
-                    
-                  
-
       <div className="content_Article">
         <Modal
           isOpen={modalIsOpen}
@@ -179,8 +101,7 @@ const Article = (props) => {
           <div className="auth-form-light text-left p-4">
             <h3 className="font-weight-light">Ajouter un nouveau Article</h3>
             <br />
-            <form className="pt-3" onSubmit={handleFormSubmit} encType="multipart/form-data"
->
+            <form className="pt-3" onSubmit={handleFormSubmit}>
               <div className="form-group">
                 <h5 className="auth-link text-black"> Nom de l’article</h5>
                 <input
@@ -206,6 +127,7 @@ const Article = (props) => {
                   ))}
                   </select>
               </div>
+              <ToastContainer></ToastContainer>
 
               <div className="form-group">
                 <h5 className="auth-link text-black"> Quantité</h5>
@@ -219,21 +141,19 @@ const Article = (props) => {
                   onChange={MyValueInput}
                 />
               </div>
-              <h5 className="auth-link text-black">Localisation </h5>
 
               <div className="form-group">
-                <select
-                  className="select_categorie"
+                <h5 className="auth-link text-black"> Localisation</h5>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputUsername2"
                   name="localisation"
+                  required
+                  placeholder="localisation"
                   onChange={MyValueInput}
-                >
-                       {depot.map((dep)=>(
-                    <option value={dep._id}>{dep.nomDepot}</option>
-                  ))}
-                
-                </select>
+                />
               </div>
-
               <h5 className="auth-link text-black">Statut </h5>
 
               <div className="form-group">
@@ -247,22 +167,6 @@ const Article = (props) => {
                   <option value="reservé">reservé</option>
                 </select>
               </div>
-
-              <div className="form-group">
-              <h5 className="auth-link text-black">Image </h5>
-
-              <input
-                type="file"
-                className="form-control"
-                name="imageArticle"
-                id="exampleInputMobile"
-                required
-                placeholder="image"
-                onChange={uploadToState}
-              />
-            </div>
-
-
 
               <div className="mb-2">
                 <button
@@ -287,11 +191,7 @@ const Article = (props) => {
             </form>
           </div>
         </Modal>
-        <ToastContainer></ToastContainer>
-
-        <div className="categorie_article" style={{
-          marginLeft:"-12%"
-        }}>
+        <div className="categorie_article">
           <div className="title_categorie_icons">
             <h3>Magazin</h3>
             <i class="mdi mdi-chevron-right"></i>
@@ -306,12 +206,9 @@ const Article = (props) => {
                      className="form-select_Art"
                      aria-label="Default select example"
                   name="categorieArticle"
-                  onChange={Filteritems}
+                  onChange={MyValueInput}
                 >
-                  <option value="all"  >Tous les catégories</option>
-
                   {categorie.map((cat)=>(
-                 
                     <option value={cat._id}>{cat.nomCategorie}</option>
                   ))}
                   </select>
@@ -321,20 +218,12 @@ const Article = (props) => {
 
           </div>
           <div className="select">
-          <select
-                     className="form-select_Art"
-                     aria-label="Default select example"
-                  name="localisation"
-                  onChange={FilteritemsDepot}
-                >
-                  <option value="all" >Tous les Dépots</option>
-
-                  {depot.map((depot)=>(
-                 
-                    <option value={depot._id}>{depot.nomDepot}</option>
-                  ))}
-                  </select>
-
+            <select
+              className="form-select_Art"
+              aria-label="Default select example"
+            >
+              <option selected>Inventaires</option>
+            </select>
           </div>
         </div>
         <div className="serhceInput">
@@ -364,13 +253,11 @@ const Article = (props) => {
       </div>
 
       <div className="row">
-
         {allArticle.map((art) => (
           <div
             className="col-lg-3 grid-margin stretch-card"
             style={{ height: "18em" }}
           >
-
             <div className="card" key={art._id}>
               <div className="card-body">
                 <div class="image__overlay image__overlay--primary">
@@ -394,10 +281,7 @@ const Article = (props) => {
                   ></img>
                 </div>
                 <img
-                
-                src={
-                  "http://localhost:4000/api/article/getImage/" + art._id
-                }
+                  src="https://img-19.ccm2.net/iBYO1DOif2mcoMT7crnZ0Yy3XaU=/480x270/smart/b829396acc244fd484c5ddcdcb2b08f3/ccmcms-commentcamarche/20494859.jpg"
                   className="imageDimCat"
                 />
                 <div className="title_Article">
@@ -405,12 +289,10 @@ const Article = (props) => {
                 </div>
                 <div className="location">
                   <img src="./image/icons/iconPostion.PNG" alt="" srcSet />
-                  <h6>{art.localisation.nomDepot}</h6>
+                  <h6>{art.localisation}</h6>
                 </div>
               </div>
-
             </div>
-
           </div>
         ))}
       </div>

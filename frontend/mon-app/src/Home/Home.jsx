@@ -22,7 +22,7 @@ const Home = (props) => {
             console.log("welcome")
             props.setUser(res.data)
         }).catch((error)=>{
-            if(error.response.status === 403){
+            if(error.response.status == 403){
                 props.history && props.history.replace('/login')
                 props.setUser(null)
             }

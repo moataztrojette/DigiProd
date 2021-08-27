@@ -1,6 +1,7 @@
     const users = require("../models/user.model")
     var bcrypt = require('bcryptjs');
-    const jwt = require('jsonwebtoken')
+    const jwt = require('jsonwebtoken');
+const comptes = require("../models/compte.model");
 
     
     module.exports.login = async (req,res) => {
@@ -66,15 +67,25 @@
 
 module.exports.post = async (req,res)=>{
     const Hascode = await bcrypt.hash(req.body.password,13)
+
     const newUser = new users({
       email : req.body.email,
       password : Hascode,
       nom_entreprise :req.body.nom_entreprise,
       url_espace : req.body.url_espace,
-      langue :req.body.langue
+      langue :req.body.langue,
+      })
+      
+      const newCompte = new comptes({
+        user : newUser._id
       })
   
-      await newUser.save()
+      await Promise.all([
+        newUser.save(),
+        newCompte.save()
+      ])
+     
+
       res.send("User Add");
   }
 

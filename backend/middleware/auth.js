@@ -8,7 +8,7 @@ module.exports.isLogin = async (req,res,next)=>{
       if(error){
         return res.status(403).send('invalid token')
       }
-      req.info_user = decoded
+      req.user = decoded
       next()
     })
 

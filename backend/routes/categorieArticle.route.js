@@ -6,10 +6,11 @@ const {
   getImage,
   deleted,
 } = require("../controllers/categorieArticle.c");
+const  {isLogin} = require('../middleware/auth')
 
-router.post("/post", post);
-router.get("/findall", allCategorie);
-router.delete("/deleted/:id", deleted);
+router.post("/post",isLogin,post);
+router.get("/findall",isLogin, allCategorie);
+router.delete("/deleted/:id",isLogin, deleted);
 router.get("/getImage/:idImage", getImage);
 
 module.exports = router;

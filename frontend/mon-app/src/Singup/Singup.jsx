@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Singup.css';
 import { Link } from 'react-router-dom';
 import Validation from './Validation';
@@ -12,9 +12,15 @@ const Singup = (props) => {
 
 
     const [valuesInput , setValues] = useState({})
+    const [errors,setErrors] = useState({})
       
     
+    const responseSuccesGoogle = (response) =>{
+      console.log(response)
+    }
     
+    const responseErrorGoogle = (response) =>{
+    }
 
     
       
@@ -50,7 +56,7 @@ if(errorUser){
         }
        
 
-        if (valuesInput.email &&  valuesInput.password  && valuesInput.confipassword === valuesInput.password  ) {
+        if (valuesInput.email &&  valuesInput.password  && valuesInput.confipassword == valuesInput.password  ) {
           console.log(valuesInput)
           props.history.push("/singup_2",valuesInput)
         }

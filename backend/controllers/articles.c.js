@@ -1,44 +1,36 @@
 const articles = require("../models/article.model");
-const categories = require("../models/categorieArticle.model")
-const images = require("../models/image.model");
+const users = require("../models/user.model");
+const comptes = require("../models/compte.model");
 
 module.exports.post = async (req, res) => {
-  
-  const nm = req.files.imageArticle.name;
   const newArticle = new articles({
     nomArticle: req.body.nomArticle,
     categorieArticle: req.body.categorieArticle,
     quantite: req.body.quantite,
     localisation: req.body.localisation,
     statut: req.body.statut,
-    imageArticle : nm
 
   });
-  await newArticle.save()
 
-  const newImage = new images({
-    ref: newArticle._id,
-    name: nm,
-    body: req.files.imageArticle.data,
-    type: req.files.imageArticle.mimetype,
-  });
-  await newImage.save();
-
-  const pop = await  articles.populate(newArticle,{ path : 'localisation'})
-  res.status(200).json(pop);
+  
+  await Promise.all([
+    comptes.findOneAndUpdate({user : req.user._id},{
+      $push : {
+        articles : newArticle._id
+      }
+    }),
+    newArticle.save()
+  ])
+  
+  res.status(200).json(newArticle);
 };
-
-module.exports.getImage = async (req, res) => {
-  const id = req.params.idImage;
-  const resImage = await images.findOne({ ref: id });
-  res.setHeader("Content-Type", resImage.type);
-  res.send(resImage.body);
-};
-
 module.exports.findall = async (req, res) => {
 
-  const allArticle= await articles.find().populate('categorieArticle').populate('localisation')
-  res.json(allArticle);
+
+  const allArticle= await comptes.findOne({
+    user : req.user._id
+}).select('articles').populate('articles');
+res.json(allArticle.articles);
 
 
 
@@ -48,40 +40,22 @@ module.exports.findall = async (req, res) => {
 module.exports.serche = async (req, res) => {
   const SercheArt = await articles.find({
     nomArticle: { $regex: req.params.name, $options: "i" },
-  }).populate("localisation");
+  });
   res.json(SercheArt);
 };
+module.exports.deleted = async (req, res) => {
+  await Promise.all([
+    comptes.findOneAndUpdate({
+      user : req.user._id
+    }, {
+      $pull : {
+        articles : req.params.id
+      }
+    }),
+    articles.findByIdAndDelete({ _id: req.params.id })
+  ])
+  
 
 
-
-  module.exports.deleted = async (req, res) => {
-    await articles.findByIdAndDelete({ _id: req.params.id });
-    res.status(200).send("deleted");
-  };
-
-module.exports.Filteritems = async (req,res)=>{
-  const FilterCategorie = await articles.find({
-    categorieArticle : req.params.id
-  }).populate('localisation')
-  res.json(FilterCategorie)
-}
-
-module.exports.FilteritemsDepot = async (req,res)=>{
-  const resFilter = await articles.find({
-    localisation : req.params.name
-  }).populate('localisation')
-  res.json(resFilter)
-}
-
-
-
-
-module.exports.findArticleParCategorie = async(req,res)=>{
-
-  const SercheArticle = await articles.find({
-    localisation  : req.params.id
-  }).populate('categorieArticle').populate('localisation')
-  res.status(200).send(SercheArticle)
-}
-
-
+  res.status(200).send("deleted");
+};

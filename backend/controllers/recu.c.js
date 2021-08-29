@@ -10,10 +10,20 @@ module.exports.post = async (req,res)=>{
         date : req.body.date,
         receveur : req.body.receveur,
         etatRecu : req.body.etatRecu,
-        fichier : req.body.fichier,
+        fichier : req.files.fichier.data,
+        typeFile : req.files.fichier.mimetype
     })
     await newrecu.save()
     res.status(200).send(newrecu)
+}
+
+
+module.exports.pdf = async(req,res)=>{
+    const resPdf = await  recus.findOne({
+        _id : req.params.id
+    }).select("fichier typeFile")
+    res.setHeader("Content-Type",resPdf.typeFile);
+    res.send(resPdf.fichier);
 }
 
 

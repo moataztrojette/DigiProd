@@ -43,6 +43,12 @@ const Facture = (props) => {
     },[])
 
    
+    const uploadToState = (event) => {
+      let res = valuesInput;
+      res[event.target.name] = event.target.files[0];
+      setValues(res);
+    };
+
 
     
     const MyValueInput = (event) => {
@@ -57,7 +63,20 @@ const Facture = (props) => {
 
     const handleFormSubmit = async(event)=>{
             event.preventDefault()
-            const data =await axios.post("http://localhost:4000/api/facture/post",valuesInput)
+            const formData = new FormData();
+           formData.append("client", valuesInput.client);
+           formData.append("description", valuesInput.description);
+           formData.append("date", valuesInput.date);
+           formData.append("prix", valuesInput.prix);
+           formData.append("etatfacture", valuesInput.etatfacture);
+           formData.append("fichier", valuesInput.fichier);
+
+
+            const data =await axios.post("http://localhost:4000/api/facture/post",formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
 
             toast("Facture a été ajouter avec success ", {
                 type: "success",
@@ -65,10 +84,6 @@ const Facture = (props) => {
               const preventState = facture
               preventState.push(data.data)
               setFacture(preventState)
-        
-
-
-
     }
 
     const deletedFacture = async (id)=>{
@@ -206,11 +221,11 @@ const Facture = (props) => {
                   type="file"
                   className="form-control"
                   id="exampleInputUsername2"
-                  name="file"
+                  name="fichier"
                   required
                   placeholder="File"
-                  onChange={MyValueInput}
-                />
+                  onChange={uploadToState}
+                  />
               </div>
 
 
@@ -316,9 +331,10 @@ const Facture = (props) => {
         <li>{fact.prix}DT</li>
         <li>{fact.date}</li>
         <div style={{marginBottom:15,marginRight:15}}>
-        <img src="/image/facture/down-arrow.png" style={{
+        <a href={"http://localhost:4000/api/facture/file/"+fact._id} download target="_blank" ><img src="/image/facture/down-arrow.png" style={{
           marginRight:12
-        }}  alt="" />
+        }}  alt="" /></a>
+
         <img src="/image/facture/trash.png" alt=""  onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",

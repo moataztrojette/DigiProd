@@ -5,7 +5,8 @@ const commande  = new mongoose.Schema({
     description : {type :String , required : true},
     date : {type:String,required:true},
     etatCommande : {type:String,required:true},
-    file : {type:String,required:true}
+    fichier : {type:Buffer,required:true},
+    typeFile : {type:String,required:true}
 })
 const commandes = mongoose.model("commandes",commande)
 module.exports = commandes

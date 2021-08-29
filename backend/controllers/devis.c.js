@@ -2,20 +2,30 @@ const { distinct } = require("../models/recu.model")
 const devis = require("../models/devis.model")
 
 module.exports.post = async (req,res)=>{
- 
- 
     const newDevis = new devis({
         client : req.body.client,
         description : req.body.description,
         date : req.body.date,
-        file : req.body.file,
-        etatDevis : req.body.etatDevis
+        etatDevis : req.body.etatDevis,
+        fichier : req.files.fichier.data,
+        typeFile : req.files.fichier.mimetype
     })
     await newDevis.save()
     const pop = await  devis.populate(newDevis,{ path : 'client'})
-
     res.status(200).send(pop)
 }
+
+
+
+module.exports.pdf = async(req,res)=>{
+    const resPdf = await  devis.findOne({
+        _id : req.params.id
+    }).select("fichier typeFile")
+    res.setHeader("Content-Type",resPdf.typeFile);
+    res.send(resPdf.fichier);
+}
+
+
 
 
 module.exports.findall = async (req,res)=>

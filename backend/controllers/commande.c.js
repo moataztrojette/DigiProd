@@ -9,12 +9,22 @@ module.exports.post = async (req,res)=>{
         description : req.body.description,
         date : req.body.date,
         etatCommande : req.body.etatCommande,
-        file : req.body.file
+        fichier : req.files.fichier.data,
+        typeFile : req.files.fichier.mimetype
     })
     await newCommande.save()
     const pop = await  commandes.populate(newCommande,{ path : 'client'})
 
     res.status(200).send(pop)
+}
+
+
+module.exports.pdf = async(req,res)=>{
+    const resPdf = await  commandes.findOne({
+        _id : req.params.id
+    }).select("fichier typeFile")
+    res.setHeader("Content-Type",resPdf.typeFile);
+    res.send(resPdf.fichier);
 }
 
 

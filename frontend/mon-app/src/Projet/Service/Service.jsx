@@ -97,7 +97,6 @@ const Service = () => {
       });
              
       const resFind = service.find( (element) => element._id === valuesInput_update._id )
-      console.log(datatService.data)
       const newState =  service
       const index = service.indexOf(resFind)
       newState[index] = datatService.data

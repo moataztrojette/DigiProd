@@ -33,7 +33,6 @@ const Login = (props) => {
           const data = await axios.post("http://localhost:4000/api/user/login",valueInput)
           setErrors(false)
           props.history.replace('/')          
-          console.log(data.data)
         }
 
       catch (error)

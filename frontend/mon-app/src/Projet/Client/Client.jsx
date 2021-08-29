@@ -100,7 +100,6 @@ const Client = () => {
                 });
                        
                 const resFind = client.find( (element) => element._id === valuesInput_update._id )
-                console.log(dataClient.data)
                 const newState =  client
                 const index = client.indexOf(resFind)
                 newState[index] = dataClient.data
@@ -108,7 +107,6 @@ const Client = () => {
       
                 
             } catch (error) {
-                console.log(error);
                 toast(error.response.data, {
                   type: "error",
                 });

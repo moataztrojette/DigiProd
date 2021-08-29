@@ -43,7 +43,6 @@ if(errorUser){
           //setErrors(Validation(valuesInput))
         }
         catch(error){
-          console.log(error)
            toast(error.response.data,{
             type:'error'
           }) 
@@ -51,7 +50,6 @@ if(errorUser){
        
 
         if (valuesInput.email &&  valuesInput.password  && valuesInput.confipassword === valuesInput.password  ) {
-          console.log(valuesInput)
           props.history.push("/singup_2",valuesInput)
         }
       

@@ -12,7 +12,6 @@ module.exports.post = async (req, res) => {
     localisation: req.body.localisation,
     statut: req.body.statut,
     imageArticle : nm
-
   });
   await newArticle.save()
 

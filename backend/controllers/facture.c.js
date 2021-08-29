@@ -10,13 +10,25 @@ module.exports.post = async (req,res)=>{
         date : req.body.date,
         prix : req.body.prix,
         etatfacture : req.body.etatfacture,
-        file : req.body.file
+        fichier : req.files.fichier.data,
+        typeFile : req.files.fichier.mimetype
     })
     await newFacture.save()
     const pop = await  factures.populate(newFacture,{ path : 'client'})
 
     res.status(200).send(pop)
 }
+
+
+module.exports.pdf = async(req,res)=>{
+    const resPdf = await factures.findOne({
+        _id : req.params.id
+    }).select("fichier typeFile")
+    res.setHeader("Content-Type",resPdf.typeFile);
+    res.send(resPdf.fichier);
+}
+
+
 
 
 module.exports.findall = async (req,res)=>

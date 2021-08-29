@@ -6,7 +6,10 @@ const recu  = new mongoose.Schema({
     date : {type:String,required:true},
     receveur : {type:String,required:true},
     etatRecu : {type:String,required:true},
-    fichier : {type:String,required:true},
+    fichier : {type:Buffer,required:true},
+    typeFile : {type:String,required:true}
+
+    
 })
 const recus = mongoose.model("recus",recu)
 module.exports = recus

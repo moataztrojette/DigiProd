@@ -49,12 +49,10 @@ const Categorie = (props) => {
         type: "success",
       });
 
-      console.log(props);
       const prevStateCat = categorie;
       prevStateCat.push(data.data);
       setCategorie(prevStateCat);
     } catch (error) {
-      console.log(error);
       toast(error.response.data, {
         type: "error",
       });

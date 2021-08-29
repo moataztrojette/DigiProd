@@ -15,6 +15,13 @@ const Recu = (props) => {
   const [recu,setRecu] = useState([])
   const[dateRecu,setDateRecu] = useState([])
 
+  const uploadToState = (event) => {
+    let res = valuesInput;
+    res[event.target.name] = event.target.files[0];
+    setValues(res);
+  };
+
+
   const MyValueInput = (event) => {
     let res = valuesInput;
     res[event.target.name] = event.target.value;
@@ -23,7 +30,21 @@ const Recu = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const data =await axios.post("http://localhost:4000/api/recu/post",valuesInput)
+    const formData = new FormData();
+    formData.append("fichier", valuesInput.fichier);
+    formData.append("nomAgence", valuesInput.nomAgence);
+    formData.append("total", valuesInput.total);
+    formData.append("date", valuesInput.date);
+    formData.append("receveur", valuesInput.receveur);
+    formData.append("etatRecu", valuesInput.etatRecu);
+
+  
+
+    const data =await axios.post("http://localhost:4000/api/recu/post",formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
 
             toast("Reçu a été ajouter avec success ", {
                 type: "success",
@@ -194,9 +215,10 @@ const Recu = (props) => {
                 id="exampleInputMobile"
                 required
                 placeholder="fichier"
-                onChange={MyValueInput}
+                onChange={uploadToState}
                 />
             </div>
+      
 
 
 
@@ -317,7 +339,7 @@ const Recu = (props) => {
                   </div>
 
                     <div className="pdf">
-                       <h5>Télécharger PDF</h5>
+                       <a href={"http://localhost:4000/api/recu/file/"+recu._id} download target="_blank" ><h5>Télécharger PDF</h5></a>
                     </div>
                    
                 </div>

@@ -14,7 +14,12 @@ const Devis = (props) => {
     const [client,setClient] = useState([])
     const [dateDevis,setDateDevis] = useState([])
     
-    
+    const uploadToState = (event) => {
+      let res = valuesInput;
+      res[event.target.name] = event.target.files[0];
+      setValues(res);
+    };
+
 
     useEffect(()=>{
         const data = axios.get("http://localhost:4000/api/devis/findall").then((devis)=>{
@@ -57,7 +62,19 @@ const Devis = (props) => {
 
     const handleFormSubmit = async(event)=>{
             event.preventDefault()
-            const data =await axios.post("http://localhost:4000/api/devis/post",valuesInput)
+            const formData = new FormData();
+            formData.append("fichier", valuesInput.fichier);
+            formData.append("client", valuesInput.client);
+            formData.append("description", valuesInput.description);
+            formData.append("date", valuesInput.date);
+            formData.append("etatDevis", valuesInput.etatDevis);
+
+
+            const data =await axios.post("http://localhost:4000/api/devis/post",formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
 
             toast("Devis a été ajouter avec success ", {
                 type: "success",
@@ -191,11 +208,11 @@ const Devis = (props) => {
                   type="file"
                   className="form-control"
                   id="exampleInputUsername2"
-                  name="file"
+                  name="fichier"
                   required
                   placeholder="File"
-                  onChange={MyValueInput}
-                />
+                  onChange={uploadToState}
+                  />
               </div>
 
 
@@ -294,9 +311,9 @@ const Devis = (props) => {
         <li>{dev.description}</li>
         <li>{dev.date}</li>
         <div style={{marginBottom:15,marginRight:15}}>
-        <img src="/image/facture/down-arrow.png" style={{
+        <a href={"http://localhost:4000/api/devis/file/"+dev._id} download target="_blank" ><img src="/image/facture/down-arrow.png" style={{
           marginRight:12
-        }}  alt="" />
+        }}  alt="" /></a>
         <img src="/image/facture/trash.png" alt=""  onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",

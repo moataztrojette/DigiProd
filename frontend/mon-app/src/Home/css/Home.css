@@ -18989,3 +18989,19 @@ margin-right: 50px;
 .slick-next:before {
   color: red!important;
 }
+.Archive{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.image_archive{
+ 
+  text-align: center;
+  padding: 30px;
+  margin-left: 5%;
+
+}
+
+.card-img-actions{
+  background-color: #FFE8E3;
+}

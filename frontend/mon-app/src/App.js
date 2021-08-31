@@ -18,7 +18,8 @@ import Facture from "./Finances/Facture/Facture.jsx";
 import Devis from "./Finances/Devis/Devis.jsx";
 import Commande from "./Finances/Commande/Commande.jsx";
 import Bibliotheque from "./Documents/Bibliotheque/Bibliotheque.jsx";
-
+import Digitalisation from "./Documents/Digitalisation/Digitalisation.jsx";
+import Archive from "./Documents/Archive/Archive.jsx";
 
 
 function App() {
@@ -51,6 +52,11 @@ function App() {
             <Route path="/devis" component={Devis}/>
             <Route path="/commande" component={Commande}/>
             <Route path="/bibliotheque" component={Bibliotheque}/>
+            <Route path="/digitalisation" component={Digitalisation}/>
+            <Route path="/archive" component={Archive}/>
+
+            
+
 
 
 

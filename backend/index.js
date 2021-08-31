@@ -20,8 +20,8 @@ const recu = require("./routes/recu.route")
 const facture = require("./routes/facture.route")
 const devis = require("./routes/devis.route")
 const commande = require("./routes/commande.route")
-
-
+const bibliotheque = require("./routes/bibliotheque.route")
+ 
 
 const { use } = require("./routes/categorieArticle.route");
 env.config()
@@ -50,6 +50,7 @@ app.use('/api/recu',recu)
 app.use('/api/facture',facture)
 app.use('/api/devis',devis)
 app.use('/api/commande',commande)
+app.use('/api/bibliotheque',bibliotheque)
 
 
 

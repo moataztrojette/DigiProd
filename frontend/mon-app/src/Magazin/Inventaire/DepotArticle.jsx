@@ -1,29 +1,25 @@
 import axios from "axios";
-import React, {useState,useEffect } from "react";
-import { KeyboardArrowLeft} from '@material-ui/icons'
+import React, { useState, useEffect } from "react";
+import { KeyboardArrowLeft } from "@material-ui/icons";
 import Swal from "sweetalert2";
 
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 const DepotArticle = (props) => {
-
-
   const [allArticle, setArticle] = useState([]);
 
-
-  useEffect(()=>{
-
-    if(props.match.params.id){
-      axios.get("http://localhost:4000/api/article/serchearticle/depot/"+ props.match.params.id).then((res) => {
-        setArticle(res.data);
-      });
+  useEffect(() => {
+    if (props.match.params.id) {
+      axios
+        .get(
+          "http://localhost:4000/api/article/serchearticle/depot/" +
+            props.match.params.id
+        )
+        .then((res) => {
+          setArticle(res.data);
+        });
     }
-
-
-  },[])
-
-  
-
+  }, []);
 
   const deletedArticleWithId = async (id) => {
     await axios
@@ -40,26 +36,22 @@ const DepotArticle = (props) => {
       });
   };
 
-  
-
   return (
     <div>
-                    
-                  
-
       <div className="content_Article">
-       
         <div className="categorie_article">
-          <Link to ="/article"><div className="title_categorie_icons">
-          <KeyboardArrowLeft style = {{
-          color : "#FC8163",marginBottom : 5}}/>
-            <h4>Retour</h4>
-           
-          </div></Link>
-       
-      
+          <Link to="/article">
+            <div className="title_categorie_icons">
+              <KeyboardArrowLeft
+                style={{
+                  color: "#FC8163",
+                  marginBottom: 5,
+                }}
+              />
+              <h4>Retour</h4>
+            </div>
+          </Link>
         </div>
-     
       </div>
 
       <div className="row">
@@ -91,9 +83,7 @@ const DepotArticle = (props) => {
                   ></img>
                 </div>
                 <img
-                src={
-                  "http://localhost:4000/api/article/getImage/" + art._id
-                }
+                  src={"http://localhost:4000/api/article/getImage/" + art._id}
                   className="imageDimCat"
                 />
                 <div className="title_Article">

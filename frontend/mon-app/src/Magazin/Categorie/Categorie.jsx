@@ -5,10 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
-
 const Categorie = (props) => {
   Modal.setAppElement("#root");
-
 
   const [categorie, setCategorie] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -87,7 +85,6 @@ const Categorie = (props) => {
         isOpen={modalIsOpen}
         shouldCloseOnOverlayClick={false}
         onRequestClose={() => setModalIsOpen(false)}
-     
         style={{
           content: {
             top: "50%",
@@ -190,8 +187,6 @@ const Categorie = (props) => {
             onClick={() => setModalIsOpen(true)}
             type="button"
             className="btn btn-primary-color_inv"
-          
-            
           >
             Nouveau Catégorie +{" "}
           </button>

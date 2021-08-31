@@ -7,12 +7,11 @@ import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 const Article = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [valuesInput, setValues] = useState({
-  });
-  const [depot,setDepot] = useState([])
+  const [valuesInput, setValues] = useState({});
+  const [depot, setDepot] = useState([]);
 
   const [allArticle, setArticle] = useState([]);
-  const[categorie,setCategorie] = useState([]);
+  const [categorie, setCategorie] = useState([]);
 
   const MyValueInput = (event) => {
     let res = valuesInput;
@@ -35,7 +34,6 @@ const Article = (props) => {
     formData.append("localisation", valuesInput.localisation);
     formData.append("statut", valuesInput.statut);
     formData.append("imageArticle", valuesInput.imageArticle);
-
 
     const data = await axios.post(
       "http://localhost:4000/api/article/post",
@@ -60,35 +58,27 @@ const Article = (props) => {
       setArticle(Art.data);
     });
 
-    axios.get("http://localhost:4000/api/categorie/findall").then((cat)=>{
-      if(cat.data[0]){
-        let  cate = cat.data[0]._id
-      
-      axios.get("http://localhost:4000/api/depot/findall").then((depo)=>{
-        if(depo.data[0]){
-            let loca = depo.data[0]._id
-            
-        setValues({
-          localisation : loca,
-          categorieArticle : cate,
-          statut : "enlocation"
-        })
-        setDepot(depo.data)
+    axios.get("http://localhost:4000/api/categorie/findall").then((cat) => {
+      if (cat.data[0]) {
+        let cate = cat.data[0]._id;
 
-      setCategorie(cat.data)
+        axios.get("http://localhost:4000/api/depot/findall").then((depo) => {
+          if (depo.data[0]) {
+            let loca = depo.data[0]._id;
 
-      }});
+            setValues({
+              localisation: loca,
+              categorieArticle: cate,
+              statut: "enlocation",
+            });
+            setDepot(depo.data);
 
-    }});
-  
-
-    
-    
-  
+            setCategorie(cat.data);
+          }
+        });
+      }
+    });
   }, []);
-
-
-
 
   const deletedArticleWithId = async (id) => {
     await axios
@@ -106,60 +96,46 @@ const Article = (props) => {
   };
 
   const rechercheUsers = async (event) => {
-   
-    if(event.target.value ===''){
+    if (event.target.value === "") {
       axios.get("http://localhost:4000/api/article/findall").then((res) => {
         setArticle(res.data);
       });
-    }
-    else{
+    } else {
       let sercheArt = await axios.get(
         "http://localhost:4000/api/article/serhce/" + event.target.value
       );
       setArticle(sercheArt.data);
     }
-    
-   
   };
 
-
-  const Filteritems = async (event)=>{
-    if(event.target.value === 'all'){
+  const Filteritems = async (event) => {
+    if (event.target.value === "all") {
       axios.get("http://localhost:4000/api/article/findall").then((res) => {
         setArticle(res.data);
-    });
+      });
+    } else {
+      const filter = await axios.get(
+        "http://localhost:4000/api/article/filter/" + event.target.value
+      );
+      setArticle(filter.data);
     }
-    else{
-      const filter = await axios.get("http://localhost:4000/api/article/filter/"+ event.target.value)
-      setArticle(filter.data)
-    }
-   
-  }
+  };
 
-
-
-  const FilteritemsDepot = async (event)=>{
-    if(event.target.value === 'all'){
+  const FilteritemsDepot = async (event) => {
+    if (event.target.value === "all") {
       axios.get("http://localhost:4000/api/article/findall").then((res) => {
         setArticle(res.data);
-    });
+      });
+    } else {
+      const filterDep = await axios.get(
+        "http://localhost:4000/api/article/filterdepot/" + event.target.value
+      );
+      setArticle(filterDep.data);
     }
-    else{
-      const filterDep = await axios.get("http://localhost:4000/api/article/filterdepot/"+ event.target.value)
-      setArticle(filterDep.data)
-    }
-   
-  }
-
-
-
-  
+  };
 
   return (
     <div>
-                    
-                  
-
       <div className="content_Article">
         <Modal
           isOpen={modalIsOpen}
@@ -179,8 +155,11 @@ const Article = (props) => {
           <div className="auth-form-light text-left p-4">
             <h3 className="font-weight-light">Ajouter un nouveau Article</h3>
             <br />
-            <form className="pt-3" onSubmit={handleFormSubmit} encType="multipart/form-data"
->
+            <form
+              className="pt-3"
+              onSubmit={handleFormSubmit}
+              encType="multipart/form-data"
+            >
               <div className="form-group">
                 <h5 className="auth-link text-black"> Nom de l’article</h5>
                 <input
@@ -201,10 +180,10 @@ const Article = (props) => {
                   name="categorieArticle"
                   onChange={MyValueInput}
                 >
-                  {categorie.map((cat)=>(
+                  {categorie.map((cat) => (
                     <option value={cat._id}>{cat.nomCategorie}</option>
                   ))}
-                  </select>
+                </select>
               </div>
 
               <div className="form-group">
@@ -227,10 +206,9 @@ const Article = (props) => {
                   name="localisation"
                   onChange={MyValueInput}
                 >
-                       {depot.map((dep)=>(
+                  {depot.map((dep) => (
                     <option value={dep._id}>{dep.nomDepot}</option>
                   ))}
-                
                 </select>
               </div>
 
@@ -249,20 +227,18 @@ const Article = (props) => {
               </div>
 
               <div className="form-group">
-              <h5 className="auth-link text-black">Image </h5>
+                <h5 className="auth-link text-black">Image </h5>
 
-              <input
-                type="file"
-                className="form-control"
-                name="imageArticle"
-                id="exampleInputMobile"
-                required
-                placeholder="image"
-                onChange={uploadToState}
-              />
-            </div>
-
-
+                <input
+                  type="file"
+                  className="form-control"
+                  name="imageArticle"
+                  id="exampleInputMobile"
+                  required
+                  placeholder="image"
+                  onChange={uploadToState}
+                />
+              </div>
 
               <div className="mb-2">
                 <button
@@ -289,9 +265,12 @@ const Article = (props) => {
         </Modal>
         <ToastContainer></ToastContainer>
 
-        <div className="categorie_article" style={{
-          marginLeft:"-12%"
-        }}>
+        <div
+          className="categorie_article"
+          style={{
+            marginLeft: "-12%",
+          }}
+        >
           <div className="title_categorie_icons">
             <h3>Magazin</h3>
             <i class="mdi mdi-chevron-right"></i>
@@ -302,39 +281,32 @@ const Article = (props) => {
             ></img>
           </div>
           <div className="select">
-          <select
-                     className="form-select_Art"
-                     aria-label="Default select example"
-                  name="categorieArticle"
-                  onChange={Filteritems}
-                >
-                  <option value="all"  >Tous les catégories</option>
+            <select
+              className="form-select_Art"
+              aria-label="Default select example"
+              name="categorieArticle"
+              onChange={Filteritems}
+            >
+              <option value="all">Tous les catégories</option>
 
-                  {categorie.map((cat)=>(
-                 
-                    <option value={cat._id}>{cat.nomCategorie}</option>
-                  ))}
-                  </select>
-
-           
-
-
+              {categorie.map((cat) => (
+                <option value={cat._id}>{cat.nomCategorie}</option>
+              ))}
+            </select>
           </div>
           <div className="select">
-          <select
-                     className="form-select_Art"
-                     aria-label="Default select example"
-                  name="localisation"
-                  onChange={FilteritemsDepot}
-                >
-                  <option value="all" >Tous les Dépots</option>
+            <select
+              className="form-select_Art"
+              aria-label="Default select example"
+              name="localisation"
+              onChange={FilteritemsDepot}
+            >
+              <option value="all">Tous les Dépots</option>
 
-                  {depot.map((depot)=>(
-                 
-                    <option value={depot._id}>{depot.nomDepot}</option>
-                  ))}
-                  </select>
-
+              {depot.map((depot) => (
+                <option value={depot._id}>{depot.nomDepot}</option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="serhceInput">
@@ -364,13 +336,11 @@ const Article = (props) => {
       </div>
 
       <div className="row">
-
         {allArticle.map((art) => (
           <div
             className="col-lg-3 grid-margin stretch-card"
             style={{ height: "18em" }}
           >
-
             <div className="card" key={art._id}>
               <div className="card-body">
                 <div class="image__overlay image__overlay--primary">
@@ -394,10 +364,7 @@ const Article = (props) => {
                   ></img>
                 </div>
                 <img
-                
-                src={
-                  "http://localhost:4000/api/article/getImage/" + art._id
-                }
+                  src={"http://localhost:4000/api/article/getImage/" + art._id}
                   className="imageDimCat"
                 />
                 <div className="title_Article">
@@ -408,9 +375,7 @@ const Article = (props) => {
                   <h6>{art.localisation.nomDepot}</h6>
                 </div>
               </div>
-
             </div>
-
           </div>
         ))}
       </div>

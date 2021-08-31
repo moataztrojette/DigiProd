@@ -17,6 +17,7 @@ import Recu from"./Finances/Recu/Recu"
 import Facture from "./Finances/Facture/Facture.jsx";
 import Devis from "./Finances/Devis/Devis.jsx";
 import Commande from "./Finances/Commande/Commande.jsx";
+import Bibliotheque from "./Documents/Bibliotheque/Bibliotheque.jsx";
 
 
 
@@ -49,6 +50,10 @@ function App() {
             <Route path="/facture" component={Facture}/>
             <Route path="/devis" component={Devis}/>
             <Route path="/commande" component={Commande}/>
+            <Route path="/bibliotheque" component={Bibliotheque}/>
+
+
+
 
 
 

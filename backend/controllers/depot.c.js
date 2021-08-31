@@ -1,7 +1,7 @@
 const articles = require("../models/article.model");
 const depots =require("../models/depot.model")
 const images = require("../models/image.model");
-
+const recu = require("../models/recu.model")
 
 
 
@@ -50,6 +50,9 @@ module.exports.findAll = async (req,res)=>{
 module.exports.deleted = async (req,res)=>{
 
     await articles.deleteMany({localisation :req.params.id })
+    await recu.deleteMany({receveur :req.params.id })
+
+
     await depots.findByIdAndRemove({_id : req.params.id})
     res.status(200).send("deleted")
 }

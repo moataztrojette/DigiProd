@@ -9,11 +9,13 @@ import { Link } from 'react-router-dom';
 import "react-toastify/dist/ReactToastify.css";
 const Recu = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [valuesInput, setValues] = useState({
-    etatRecu : "entrant"
-  });
+  const [valuesInput, setValues] = useState({});
   const [recu,setRecu] = useState([])
   const[dateRecu,setDateRecu] = useState([])
+  const [client,setClient] = useState([])
+  const [depot,setDepot] = useState([])
+
+
 
   const uploadToState = (event) => {
     let res = valuesInput;
@@ -62,6 +64,30 @@ const Recu = (props) => {
             
         axios.get("http://localhost:4000/api/recu/finddate").then((res2)=>{
             setDateRecu(res2.data)
+
+              axios.get("http://localhost:4000/api/depot/findall").then((dep)=>{
+                if(dep.data[0]){
+                  let  rec = dep.data[0]._id
+                
+                                
+            axios.get("http://localhost:4000/api/client/findall").then((cl)=>{
+
+              if(cl.data[0]){
+                let  cli = cl.data[0]._id
+  
+                setValues({
+                  nomAgence : cli,
+                  etatRecu : "entrant",
+                  receveur : rec
+                })
+              }
+              setClient(cl.data)
+              setDepot(dep.data)
+  
+  
+            })
+        }})
+
         })            
             })
 
@@ -142,15 +168,15 @@ const Recu = (props) => {
 >
               <div className="form-group">
                 <h5 className="auth-link text-black"> Nom de l'agence</h5>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="exampleInputUsername2"
+                <select
+                  className="select_categorie"
                   name="nomAgence"
-                  required
-                  placeholder="Nom de l'agence"
                   onChange={MyValueInput}
-                />
+                >
+                  {client.map((cl)=>(
+                    <option value={cl._id}>{cl.nomSociete}</option>
+                  ))}
+                  </select>
               </div>
               <h5 className="auth-link text-black">Total </h5>
 
@@ -181,15 +207,15 @@ const Recu = (props) => {
               <h5 className="auth-link text-black">Receveur </h5>
 
            <div className="form-group">
-           <input
-             type="text"
-              className="form-control"
-              id="exampleInputUsername2"
-              name="receveur"
-              required
-              placeholder="Receveur"
-              onChange={MyValueInput}
-              />
+           <select
+                  className="select_categorie"
+                  name="receveur"
+                  onChange={MyValueInput}
+                >
+                  {depot.map((dep)=>(
+                    <option value={dep._id}>{dep.nomDepot}</option>
+                  ))}
+                  </select>
             </div>
 
               <h5 className="auth-link text-black">État reçu </h5>
@@ -320,7 +346,7 @@ const Recu = (props) => {
                 </div>
               
                 <div className="title_Article">
-                  <h3>{recu.nomAgence}</h3>
+                  <h3>{recu.nomAgence.nomSociete}</h3>
                 </div>
                 <div className="agence">
                   <div className="agence_item">
@@ -335,7 +361,7 @@ const Recu = (props) => {
 
                   <div className="agence_item">
                     <h4>Receveur </h4>
-                    <h4>{recu.receveur}</h4>
+                    <h4>{recu.receveur.nomDepot}</h4>
                   </div>
 
                     <div className="pdf">

@@ -14,7 +14,9 @@ module.exports.post = async (req,res)=>{
         typeFile : req.files.fichier.mimetype
     })
     await newrecu.save()
-    res.status(200).send(newrecu)
+    const pop = await  recus.populate(newrecu,{ path : 'nomAgence , receveur'})
+
+    res.status(200).send(pop)
 }
 
 
@@ -29,7 +31,7 @@ module.exports.pdf = async(req,res)=>{
 
 module.exports.findall = async (req,res)=>
 {
-    const find = await recus.find()
+    const find = await recus.find().populate('nomAgence').populate('receveur')
     res.json(find);
 }
 
@@ -48,7 +50,7 @@ module.exports.remove = async (req,res)=>{
 module.exports.Filteritems = async (req,res)=>{
     const FilterDate = await recus.find({
       date : req.params.date
-    })
+    }).populate('nomAgence').populate('receveur')
     res.json(FilterDate)
   }
 
@@ -56,7 +58,7 @@ module.exports.Filteritems = async (req,res)=>{
   module.exports.FilteritemsEtatRecu = async (req,res)=>{
     const FilterEntrant = await recus.find({
         etatRecu : req.params.name
-    })
+    }).populate('nomAgence').populate('receveur')
     res.json(FilterEntrant)
   }
 

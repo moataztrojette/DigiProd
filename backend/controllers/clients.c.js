@@ -1,4 +1,9 @@
 const clients = require("../models/client.model")
+const factures = require("../models/facture.model")
+const devis = require("../models/devis.model")
+const recu = require("../models/recu.model")
+const commande = require("../models/commande.model")
+
 
 module.exports.post = async (req,res)=>{
     const verife =await  clients.findOne({
@@ -23,7 +28,11 @@ module.exports.findall = async (req,res)=>
 }
 
 module.exports.deletedClient = async (req,res)=>{
-
+    await factures.deleteMany({client:req.params.id})
+    await devis.deleteMany({client:req.params.id})
+    await commande.deleteMany({client:req.params.id})
+    await recu.deleteMany({nomAgence : req.params.id})
+    
     await clients.findByIdAndRemove({_id : req.params.id})
     res.status(200).send("deleted")
 }

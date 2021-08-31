@@ -2,8 +2,6 @@ const { distinct } = require("../models/recu.model")
 const factures = require("../models/facture.model")
 
 module.exports.post = async (req,res)=>{
- 
- 
     const newFacture = new factures({
         client : req.body.client,
         description : req.body.description,

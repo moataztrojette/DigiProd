@@ -18,6 +18,9 @@ const Bibliotheque = (props) => {
   const [dateBibliotheque, setDateBibliotheque] = useState([]);
 
 
+  const color = ["#FFE8E3","#D7F6FE","#E1E3E8","#F9F6DC"]
+
+
 
   useEffect(() => {
      axios
@@ -221,7 +224,7 @@ const Bibliotheque = (props) => {
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">
-            <h3>Finances</h3>
+            <h3>Documents</h3>
             <i class="mdi mdi-chevron-right"></i>
             <h3>Bibliothèque</h3>
             <img
@@ -251,7 +254,7 @@ const Bibliotheque = (props) => {
       <div className="document">
         <div className="document_title">
           <h3>Stocker vos Documents les plus pertinents(Contrats, Attestations, Scénarios..)</h3>
-          <label for="text">Sélectionner le fichier à envoyer</label>
+          <label for="text">Charger un fichier (parcourir) </label>
           <input type="text" id="text" onClick={() => setModalIsOpen(true)}/>
 
         </div>
@@ -271,7 +274,9 @@ const Bibliotheque = (props) => {
 
           <div className="sliderBib" key={bib._id}>
           <div className="slider_bib">
-            <div className="image_silder">
+            <div className="image_silder" style={{
+               backgroundColor:color[Math.floor(Math.random() * color.length)]
+            }}>
             <a
                     href={"http://localhost:4000/api/bibliotheque/file/" + bib._id}
                     download

@@ -18929,7 +18929,6 @@ dl li {
   display:none; 
   visibility:hidden; 
   border: 0px;
-
 }
 .document_title label{
   background-color: #FC7757;
@@ -18955,7 +18954,6 @@ margin-right: 50px;
 
 .image_silder{
   text-align: center;
-  background-color: #F9F6DC;
   height: 80%;
 
 }
@@ -19003,5 +19001,47 @@ margin-right: 50px;
 }
 
 .card-img-actions{
-  background-color: #FFE8E3;
+  
 }
+.digitalisation{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 94%;
+  height: 12em;
+  border-radius: 12px;
+  background-color: #C6EEF8;
+
+}
+
+
+
+
+.content_digi h4{
+  color: #0198e8;
+}
+.content_digi input{
+  display:none; 
+  visibility:hidden; 
+  border: 0px;
+}
+.content_digi label{
+  background-color: #FC7757;
+  border-radius: 15px;
+  color:#F5F6F7;
+  padding: 13px;
+  height: 40px;
+  margin-top: 10px;
+  transition: all 0.5s;
+}
+
+.content_digi > label:hover {
+  transform: scale(1.1);
+}
+.digitalisation img{
+  width: 7em;
+  margin-right: 30px;
+}
+

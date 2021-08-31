@@ -14,7 +14,10 @@ const Archive = (props) => {
   const [valuesInput, setValues] = useState({});
   const [archive, setArchive] = useState([]);
   const [dateArchive, setDateArchive] = useState([]);
+  
+  const color = ["#FFE8E3","#D7F6FE","#E1E3E8","#F9F6DC"]
 
+  
   useEffect(() => {
     axios.get("http://localhost:4000/api/archive/findall").then((arch) => {
       setArchive(arch.data);
@@ -169,7 +172,7 @@ const Archive = (props) => {
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">
-            <h3>Finances</h3>
+            <h3>Documents</h3>
             <i class="mdi mdi-chevron-right"></i>
             <h3>Archive</h3>
             <img
@@ -202,7 +205,9 @@ const Archive = (props) => {
           <div className="col-md-3 mt-2" key={arch._id}>
             <div className="card" >
               <div className="card-body">
-                <div className="card-img-actions"> 
+                <div className="card-img-actions" style={{
+                  backgroundColor:color[Math.floor(Math.random() * color.length)]
+                }}> 
                 <a
                     href={"http://localhost:4000/api/archive/file/" + arch._id}
                     download

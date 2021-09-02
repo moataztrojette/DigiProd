@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import axios from "axios";
-
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 const Inventaire = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [valuesInput, setValues] = useState({});
@@ -241,7 +241,8 @@ const Inventaire = () => {
 
                 <div className="titleArticle">
                   <div className="location">
-                    <img src="./image/icons/iconPostion.PNG" alt="" srcSet />
+                    
+                    <LocationOnOutlinedIcon  ></LocationOnOutlinedIcon>
                     <Link to={"/serche/" + res._id}>
                       <h5>Depot {res.nomDepot}</h5>
                     </Link>

@@ -49,6 +49,18 @@ module.exports.findall = async (req,res)=>
 
 
 
+module.exports.serche = async (req, res) => {
+    const SercheBib= await bibliotheques.find({
+      description: { $regex: req.params.name, $options: "i" },
+    }).select("description")
+    res.json(SercheBib);
+  };
+
+  module.exports.deleted = async (req, res) => {
+    await bibliotheques.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).send("deleted");
+  };
+
 
 
 

@@ -62,6 +62,95 @@ module.exports.Filteritems = async (req,res)=>{
     res.json(FilterFacture)
   }
 
+  module.exports.findPrice = async (req,res)=>
+{
+    
+
+    const fact = await factures.distinct("date")
+    const serchePrix = await factures.find({ 
+        etatfacture : "entrant",
+        date : {
+            $in:fact
+        }
+    }).select("prix date -_id")
+    
+    let ob = {}
+    for (let i=0;i<fact.length;i++){
+        let max = -1;
+        for (let j=0;j<serchePrix.length;j++){
+            
+            if(fact[i] === serchePrix[j].date ){
+
+            
+
+            if(ob[fact[i]]){
+            
+                if(serchePrix[j].prix>max){
+                    max = serchePrix[j].prix
+                    ob[fact[i]] = max
+                }       
+            }
+            else{
+                max = serchePrix[j].prix
+                ob[fact[i]] = max
+            }
+            //console.log(fact[i] , " : " , serchePrix[j])
+        }
+    }   
+    }   
+
+
+    res.json(ob)
+    
+}
+
+
+module.exports.findPriceSortant = async (req,res)=>
+{
+    
+
+    const fact = await factures.distinct("date")
+    const serchePrix = await factures.find({ 
+        etatfacture : "sortant",
+        date : {
+            $in:fact
+        }
+    }).select("prix date -_id")
+    
+    let ob = {}
+    for (let i=0;i<fact.length;i++){
+        let max = -1;
+        for (let j=0;j<serchePrix.length;j++){
+            
+            if(fact[i] === serchePrix[j].date ){
+
+            
+
+            if(ob[fact[i]]){
+            
+                if(serchePrix[j].prix>max){
+                    max = serchePrix[j].prix
+                    ob[fact[i]] = max
+                }       
+            }
+            else{
+                max = serchePrix[j].prix
+                ob[fact[i]] = max
+            }
+            //console.log(fact[i] , " : " , serchePrix[j])
+        }
+    }   
+    }   
+
+
+    res.json(ob)
+    
+}
+
+
+
+
+
  
 
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
-
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import "react-toastify/dist/ReactToastify.css";
 const Article = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -371,7 +371,7 @@ const Article = (props) => {
                   <h5>{art.nomArticle}</h5>
                 </div>
                 <div className="location">
-                  <img src="./image/icons/iconPostion.PNG" alt="" srcSet />
+                <LocationOnOutlinedIcon ></LocationOnOutlinedIcon>
                   <h6>{art.localisation.nomDepot}</h6>
                 </div>
               </div>

@@ -48,6 +48,21 @@ module.exports.findall = async (req,res)=>
 }
 
 
+module.exports.serche = async (req, res) => {
+    const SercheArch= await archives.find({
+      description: { $regex: req.params.name, $options: "i" },
+    }).select("description")
+    res.json(SercheArch);
+  };
+
+
+  
+  module.exports.deleted = async (req, res) => {
+    await archives.findByIdAndDelete({ _id: req.params.id });
+    res.status(200).send("deleted");
+  };
+
+
 
 
 

@@ -83,6 +83,36 @@ const Archive = (props) => {
     }
   };
 
+  const rechercheDoc = async (event)=>{
+    if (event.target.value === "") {
+      axios.get("http://localhost:4000/api/archive/findall").then((res) => {
+        setArchive(res.data);
+      });
+    } else {
+      let serche = await  axios.get(
+        "http://localhost:4000/api/archive/serhce/" + event.target.value
+      );
+      setArchive(serche.data);
+    }
+  }
+
+  const deletedArchive = async (id) => {
+    await axios
+      .delete("http://localhost:4000/api/archive/deleted/" + id)
+      .then((res) => {
+        if (res.status !== 200) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "error");
+        } else {
+          const prevState = archive;
+          const newState = prevState.filter((arch) => arch._id !== id);
+          setArchive(newState);
+          Swal.fire("Archive!", "Documents a été supprimé", "success");
+        }
+      });
+  };
+
+
+
   return (
     <div>
       <Modal
@@ -182,6 +212,23 @@ const Archive = (props) => {
           </div>
         </div>
         <div className="serhceInput">
+        <form className="d-flex align-items-center h-100" action="#">
+            <div className="input-group">
+              <div>
+                <i className="input-group-text border-0 mdi mdi-magnify" />
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="chercher Document"
+                name="serche"
+                onChange={rechercheDoc}
+
+                
+              />
+            </div>
+          </form>
+
           <button
             type="button"
             className="btn btn-primary-color_inv"
@@ -224,6 +271,22 @@ const Archive = (props) => {
                   fontSize:17,
                   color:"black",
                 }}>{arch.description}</div>
+                <i className="mdi mdi-delete-sweep"     onClick={() => {
+                      Swal.fire({
+                        title: "Êtes - vous sûr ?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Oui, supprimez-le!",
+                      }).then((result) => {
+                        if (result.value) {
+                          deletedArchive(arch._id);
+                        }
+                      });
+                    }}></i>
+
               </div>
             </div>
           </div>

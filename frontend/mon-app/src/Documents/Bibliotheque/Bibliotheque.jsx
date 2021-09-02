@@ -94,6 +94,37 @@ const Bibliotheque = (props) => {
   };
 
 
+  const rechercheDoc = async (event)=>{
+    if (event.target.value === "") {
+      axios.get("http://localhost:4000/api/bibliotheque/findall").then((res) => {
+        setBibliotheque(res.data);
+      });
+    } else {
+      let serche = await  axios.get(
+        "http://localhost:4000/api/bibliotheque/serhce/" + event.target.value
+      );
+      setBibliotheque(serche.data);
+    }
+  }
+
+  const deletedBibliotheque = async (id) => {
+    await axios
+      .delete("http://localhost:4000/api/bibliotheque/deleted/" + id)
+      .then((res) => {
+        if (res.status !== 200) {
+          Swal.fire("Deleted!", "Your file has been deleted.", "error");
+        } else {
+          const prevState = bibliotheque;
+          const newState = prevState.filter((bib) => bib._id !== id);
+          setBibliotheque(newState);
+          Swal.fire("Bibliotheque!", "Documents a été supprimé", "success");
+        }
+      });
+  };
+
+
+
+
 
   var settings = {
     dots: true,
@@ -234,6 +265,23 @@ const Bibliotheque = (props) => {
           </div>
         </div>
         <div className="serhceInput">
+        <form className="d-flex align-items-center h-100" action="#">
+            <div className="input-group">
+              <div>
+                <i className="input-group-text border-0 mdi mdi-magnify" />
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="chercher Document"
+                name="serche"
+                onChange={rechercheDoc}
+
+                
+              />
+            </div>
+          </form>
+
           <div className="select">
             <select
               className="form-select_Art"
@@ -290,6 +338,22 @@ const Bibliotheque = (props) => {
             </div>
           <div className="content_slider">
             <h4>{bib.description}</h4>
+            <i className="mdi mdi-delete-sweep" onClick={() => {
+                      Swal.fire({
+                        title: "Êtes - vous sûr ?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Oui, supprimez-le!",
+                      }).then((result) => {
+                        if (result.value) {
+                          deletedBibliotheque(bib._id);
+                        }
+                      });
+                    }}></i>
+
           </div>
           </div>
           </div>

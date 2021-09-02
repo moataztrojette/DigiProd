@@ -18476,7 +18476,6 @@ dl li {
 .location {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
   padding: 20px;
 }
@@ -18970,10 +18969,14 @@ margin-right: 50px;
 .content_slider{
   text-align: center;
   background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
   height: 20%;
 }
 
+
 .content_slider h4{
+  margin-left: 12px;
   font-weight: bold;
   padding: 10px;
 }

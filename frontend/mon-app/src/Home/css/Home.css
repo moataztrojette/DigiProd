@@ -18477,7 +18477,7 @@ dl li {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 20px;
+  
 }
 .agence{
   display: flex;
@@ -18682,7 +18682,7 @@ dl li {
 
 .title_Article h5 {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 29px;
   
 }
 .title_Article h3{

@@ -228,7 +228,9 @@ const Categorie = (props) => {
                   id="barChart"
                   className="imageDim"
                 />
-                <div className="titleArticle">
+                <div className="titleArticle" style={{
+                  padding:15
+                }}>
                   <div className="location">
                     <h5>{cat.nomCategorie}</h5>
                   </div>

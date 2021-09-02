@@ -24,7 +24,10 @@ const Login = (props) => {
         valueInput
       );
       setErrors(false);
+    
+
       props.history.replace("/");
+ 
     } catch (error) {
       //console.log(error.response)
       toast(error.response.data, {
@@ -34,10 +37,11 @@ const Login = (props) => {
   };
 
   return (
+    
     <div>
+
       <div class="d-lg-flex half">
         <div className="bg order-1 order-md-1"></div>
-
         <div class="contents order-2 order-md-2">
           <div class="container">
             <div class="row align-items-center justify-content-center">

@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { KeyboardArrowLeft } from "@material-ui/icons";
 import Swal from "sweetalert2";
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 const DepotArticle = (props) => {
-  const [allArticle, setArticle] = useState([]);
+const [allArticle, setArticle] = useState([]);
+const backImage = ["/image/Article/back1.png","/image/Article/back2.png","/image/Article/back3.png"]
 
   useEffect(() => {
     if (props.match.params.id) {
@@ -61,7 +63,14 @@ const DepotArticle = (props) => {
             style={{ height: "18em" }}
           >
             <div className="card" key={art._id}>
-              <div className="card-body">
+              <div className="card-body" style={{
+                backgroundImage :`url(${backImage[Math.floor(Math.random() * backImage.length)] 
+                })`,
+                backgroundRepeat:'no-repeat',
+                backgroundSize: "cover"
+
+               
+                }}>
                 <div class="image__overlay image__overlay--primary">
                   <img
                     src={"/image/icons/Group944.png"}
@@ -87,10 +96,12 @@ const DepotArticle = (props) => {
                   className="imageDimCat"
                 />
                 <div className="title_Article">
-                  <h5>{art.nomArticle}</h5>
+                  <h5 style={{
+                    fontWeight:"bold"
+                  }}>{art.nomArticle}</h5>
                 </div>
                 <div className="location">
-                  <img src="./image/icons/iconPostion.PNG" alt="" srcSet />
+                <LocationOnOutlinedIcon ></LocationOnOutlinedIcon>
                   <h6>{art.localisation.nomDepot}</h6>
                 </div>
               </div>

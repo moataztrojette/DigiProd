@@ -13,6 +13,10 @@ const Article = (props) => {
   const [allArticle, setArticle] = useState([]);
   const [categorie, setCategorie] = useState([]);
 
+
+  const backImage = ["/image/Article/back1.png","/image/Article/back2.png","/image/Article/back3.png"]
+ 
+
   const MyValueInput = (event) => {
     let res = valuesInput;
     res[event.target.name] = event.target.value;
@@ -57,6 +61,9 @@ const Article = (props) => {
     axios.get("http://localhost:4000/api/article/findall").then((Art) => {
       setArticle(Art.data);
     });
+
+   
+
 
     axios.get("http://localhost:4000/api/categorie/findall").then((cat) => {
       if (cat.data[0]) {
@@ -149,6 +156,7 @@ const Article = (props) => {
               bottom: "auto",
               marginRight: "-50%",
               transform: "translate(-50%, -50%)",
+              
             },
           }}
         >
@@ -339,10 +347,18 @@ const Article = (props) => {
         {allArticle.map((art) => (
           <div
             className="col-lg-3 grid-margin stretch-card"
-            style={{ height: "18em" }}
+            style={{ height: "18em" , width:50 }}
           >
+
             <div className="card" key={art._id}>
-              <div className="card-body">
+              <div className="card-body" style={{
+                backgroundImage :`url(${backImage[Math.floor(Math.random() * backImage.length)] 
+                })`,
+                backgroundRepeat:'no-repeat',
+                backgroundSize: "cover"
+
+               
+                }}>
                 <div class="image__overlay image__overlay--primary">
                   <img
                     src="./image/icons/Group944.png"
@@ -368,11 +384,13 @@ const Article = (props) => {
                   className="imageDimCat"
                 />
                 <div className="title_Article">
-                  <h5>{art.nomArticle}</h5>
+                  <h5 style={{
+                    fontWeight:"bold"
+                  }}>{art.nomArticle}</h5>
                 </div>
                 <div className="location">
                 <LocationOnOutlinedIcon ></LocationOnOutlinedIcon>
-                  <h6>{art.localisation.nomDepot}</h6>
+                  <h6 >{art.localisation.nomDepot}</h6>
                 </div>
               </div>
             </div>

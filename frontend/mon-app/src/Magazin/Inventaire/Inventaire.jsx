@@ -239,7 +239,9 @@ const Inventaire = () => {
                   className="imageDimCat2"
                 />
 
-                <div className="titleArticle">
+                <div className="titleArticle" style={{
+                  padding:15
+                }}>
                   <div className="location">
                     
                     <LocationOnOutlinedIcon  ></LocationOnOutlinedIcon>

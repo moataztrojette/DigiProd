@@ -88,12 +88,15 @@ const Inventaire = () => {
         style={{
           content: {
             top: "50%",
-            left: "50%",
+            left: "55%",
             right: "auto",
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
           },
+          overlay : {
+            backgroundColor:"rgba(206, 239, 248,0.8)",
+          }
         }}
       >
         <div className="auth-form-light text-left p-5">

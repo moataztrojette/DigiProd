@@ -22,6 +22,9 @@ const devis = require("./routes/devis.route")
 const commande = require("./routes/commande.route")
 const bibliotheque = require("./routes/bibliotheque.route")
 const archive = require("./routes/archive.route")
+const equipe = require("./routes/equipe.route")
+const membre  =require("./routes/membre.route")
+
 
 
 const { use } = require("./routes/categorieArticle.route");
@@ -53,7 +56,8 @@ app.use('/api/devis',devis)
 app.use('/api/commande',commande)
 app.use('/api/bibliotheque',bibliotheque)
 app.use('/api/archive',archive)
-
+app.use('/api/equipe',equipe)
+app.use('/api/membre',membre)
 
 
 

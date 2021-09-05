@@ -18966,6 +18966,9 @@ margin-right: 50px;
   padding-top: 15px;
 
 }
+
+
+
 .content_slider{
   text-align: center;
   background-color: #FFFFFF;
@@ -19046,5 +19049,100 @@ margin-right: 50px;
 .digitalisation img{
   width: 7em;
   margin-right: 30px;
+}
+
+.content_slider_equipe{
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+
+.content_slider_equipe h4{
+
+  font-weight: bold;
+  padding: 10px;
+}
+.image_silder_equipe img{
+  height: 30%;
+  width: 100%;
+}
+.equipe{
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  height: 70%;
+}
+.slider_Equipe{
+  overflow: hidden;
+  height: 20em;
+  border-radius: 10px;
+  margin-right: 50px;
+  
+  }
+  .equipe_liste{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .equipe_first img{
+    width: 30px;
+    height: 30px;
+}
+.equipe_first{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+justify-content: center;
+}
+.equipe_first_info{
+    display: flex;
+    flex-direction: column;
+}
+.equipe_first_info h4{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    color:#25a4c6;
+    font-weight: bold;
+  }
+.equipe_second{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.equipe_third{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+
+}
+.equipe_first_cercle{
+    width: 40px;
+    height: 40px;
+    border-radius: 18px;
+    border: 0px solid;
+    margin-right: 10px;
+}
+.equipe_body{
+    background-color: #F8F9FA;
+    
+    
+}
+
+.table_equipe{
+    width: 100%;
+}
+.table_tr th{
+    text-align: center;
+    color: #676F88;
+}
+
+.equipe_body td{
+    padding: 18px;
 }
 

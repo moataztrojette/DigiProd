@@ -64,3 +64,29 @@ module.exports.Filteritems = async (req,res)=>{
  
 
 
+  module.exports.count_entrant = async(req,res)=>
+{
+    devis.count({ etatDevis: "entrant" },(err, result)=> {
+        if (err)
+       {
+        res.send(err);
+        } 
+      else {
+        res.json(result);
+      }
+    });
+}
+
+
+module.exports.count_sortant = async(req,res)=>
+{
+    devis.count({ etatDevis: "sortant" },(err, result)=> {
+        if (err)
+       {
+        res.send(err);
+        } 
+      else {
+        res.json(result);
+      }
+    });
+}

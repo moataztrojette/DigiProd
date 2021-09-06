@@ -50,7 +50,7 @@ const Sidebar = () => {
             <div className="collapse" id="ui-basic3">
               <ul className="nav flex-column sub-menu">
                 <li className="nav-item"> <Link to ={'/equipe'} className="nav-link" href="#">Equipe / catégories</Link></li>
-                <li className="nav-item"> <a className="nav-link" href="#">Freelances</a></li>
+                <li className="nav-item"> <Link to ={'/freelancers'} className="nav-link" href="#">Freelances</Link></li>
               </ul>
             </div>
           </li>

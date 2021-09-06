@@ -20,6 +20,8 @@ const Bibliotheque = (props) => {
 
 
 
+
+
   const [valuesInput_update, setValues_update] = useState({});
   const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState({
     open: false,
@@ -207,7 +209,11 @@ const Bibliotheque = (props) => {
 
 
   
-
+  const allMembre = async(event)=>{
+    await axios.get("http://localhost:4000/api/membre/findall").then((res) => {
+        setMembre(res.data);
+      });
+  }
   
   const FilterSpecialite = async (event) => {
     if (event.target.value === "all") {
@@ -236,6 +242,7 @@ const Bibliotheque = (props) => {
     }
   };
 
+    
 
 
 
@@ -741,8 +748,8 @@ const Bibliotheque = (props) => {
           </div>
         </div>
         <div className="serhceInput">
-          <button className="btn_filter" value="sortant">
-            Tous les individus
+          <button className="btn_filter" onClick={allMembre} value="sortant">
+            Tous les individus  {membre.length}
           </button>
 
           <div className="select">
@@ -801,8 +808,8 @@ const Bibliotheque = (props) => {
             <th />
           </tr>
         </tbody>
-
         {membre.map((mb) => (
+              
 
         <tbody className="tbody_equipe">
           <tr className="equipe_body">
@@ -853,6 +860,7 @@ const Bibliotheque = (props) => {
                       setValues_update(mb);
                     }} alt="" /></td>
           </tr>
+
           <br />
         </tbody>
 

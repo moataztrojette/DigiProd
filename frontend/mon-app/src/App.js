@@ -21,6 +21,9 @@ import Bibliotheque from "./Documents/Bibliotheque/Bibliotheque.jsx";
 import Digitalisation from "./Documents/Digitalisation/Digitalisation.jsx";
 import Archive from "./Documents/Archive/Archive.jsx";
 import Equipe from "./Equipe/Equipe_Categories/Equipe"
+import Freelancers from "./Equipe/Freelancers/Freelancers.jsx";
+
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -54,6 +57,8 @@ function App() {
             <Route path="/bibliotheque" component={Bibliotheque}/>
             <Route path="/digitalisation" component={Digitalisation}/>
             <Route path="/archive" component={Archive}/>
+            <Route path="/freelancers" component={Freelancers}/>
+
 
 
             <Route path="/equipe" component={Equipe}/>

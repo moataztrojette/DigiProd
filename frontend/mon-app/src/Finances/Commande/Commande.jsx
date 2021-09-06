@@ -15,6 +15,11 @@ const Commande = (props) => {
   const [client, setClient] = useState([]);
   const [dateCommande, setDateCommande] = useState([]);
 
+  const [commandeEntrant,setCommandeEntrant] = useState([])
+  const [commandeSortant,setCommandeSortant] = useState([])
+
+
+
   const uploadToState = (event) => {
     let res = valuesInput;
     res[event.target.name] = event.target.files[0];
@@ -45,6 +50,16 @@ const Commande = (props) => {
           setClient(cl.data);
         });
       });
+
+      axios.get("http://localhost:4000/api/commande/count/entrant").then((count)=>{
+        setCommandeEntrant(count.data)
+      })
+    
+      axios.get("http://localhost:4000/api/commande/count/sortant").then((countCommande)=>{
+        setCommandeSortant(countCommande.data)
+      })
+
+
   }, []);
 
   const MyValueInput = (event) => {
@@ -248,14 +263,14 @@ const Commande = (props) => {
             value="entrant"
             onClick={FilteritemsEtatCommande}
           >
-            Commande entrants
+            Commande entrants {commandeEntrant}
           </button>
           <button
             className="btn_filter"
             value="sortant"
             onClick={FilteritemsEtatCommande}
           >
-            Commande sortants
+            Commande sortants {commandeSortant}
           </button>
         </div>
       </div>

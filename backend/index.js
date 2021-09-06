@@ -24,7 +24,7 @@ const bibliotheque = require("./routes/bibliotheque.route")
 const archive = require("./routes/archive.route")
 const equipe = require("./routes/equipe.route")
 const membre  =require("./routes/membre.route")
-
+const freelancer = require("./routes/freelancer.route")
 
 
 const { use } = require("./routes/categorieArticle.route");
@@ -58,6 +58,7 @@ app.use('/api/bibliotheque',bibliotheque)
 app.use('/api/archive',archive)
 app.use('/api/equipe',equipe)
 app.use('/api/membre',membre)
+app.use('/api/freelancer',freelancer)
 
 
 

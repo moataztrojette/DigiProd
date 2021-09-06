@@ -7,7 +7,7 @@ router.post('/post',post)
 router.get('/findall',findall)
 router.get('/finddate',findDate)
 router.get('/filter/:date',Filteritems)
-router.get("/serhce/:name", serche);
+router.get("/serche/:name", serche);
 router.delete("/deleted/:id", deleted);
 
 router.get('/file/:id',pdf)

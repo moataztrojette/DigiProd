@@ -62,6 +62,34 @@ module.exports.Filteritems = async (req,res)=>{
     res.json(FilterEntrant)
   }
 
+  module.exports.count_entrant = async(req,res)=>
+{
+    recus.count({ etatRecu: "entrant" },(err, result)=> {
+        if (err)
+       {
+        res.send(err);
+        } 
+      else {
+        res.json(result);
+      }
+    });
+}
+
+
+module.exports.count_sortant = async(req,res)=>
+{
+    recus.count({ etatRecu: "sortant" },(err, result)=> {
+        if (err)
+       {
+        res.send(err);
+        } 
+      else {
+        res.json(result);
+      }
+    });
+}
+
+
  
 
 

@@ -13,6 +13,9 @@ const Devis = (props) => {
   const [client, setClient] = useState([]);
   const [dateDevis, setDateDevis] = useState([]);
 
+  const [devisEntrant,setDevisEntrant] = useState([])
+  const [devisSortant,setDevisSortant] = useState([])
+  
   const uploadToState = (event) => {
     let res = valuesInput;
     res[event.target.name] = event.target.files[0];
@@ -41,6 +44,15 @@ const Devis = (props) => {
           setClient(cl.data);
         });
       });
+
+      axios.get("http://localhost:4000/api/devis/count/entrant").then((count)=>{
+        setDevisEntrant(count.data)
+      })
+    
+      axios.get("http://localhost:4000/api/devis/count/sortant").then((countDevis)=>{
+        setDevisSortant(countDevis.data)
+      })
+
   }, []);
 
   const MyValueInput = (event) => {
@@ -110,6 +122,8 @@ const Devis = (props) => {
     );
     setDevis(filter.data);
   };
+  
+ 
 
   return (
     <div>
@@ -243,14 +257,14 @@ const Devis = (props) => {
             value="entrant"
             onClick={FilteritemsEtatDevis}
           >
-            Devis entrants
+            Devis entrants {devisEntrant}
           </button>
           <button
             className="btn_filter"
             value="sortant"
             onClick={FilteritemsEtatDevis}
           >
-            Devis sortants
+            Devis sortants {devisSortant}
           </button>
           <select
             style={{

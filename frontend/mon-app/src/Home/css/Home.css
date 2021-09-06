@@ -19146,3 +19146,71 @@ justify-content: center;
     padding: 18px;
 }
 
+.freelancer_specialite{
+
+padding: 5px;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+
+}
+.freelancer_specialite h6{
+
+background-color: rgb(206, 239, 248);
+margin-right: 10px;
+border-radius: 15px;
+padding: 9px;
+
+}
+
+.freelancer_cv{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.freelancer_cv a{
+  margin-left: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FC7757;
+  
+}
+.freelancer_linkedin img{
+margin: 10px;}
+
+.btn_contacte_freelancer{
+  border: 0;
+  background-color: #FC7757;
+  padding: 10px;
+  border-radius: 15px;
+  color:var(--light);
+  margin: 10px;
+  width: 40%;
+
+  
+}
+.contact_end{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; 
+}
+.contact_end a{
+  width: 100%;
+  color:var(--light);
+  text-align: center  ;
+}
+
+.contact_end button{
+  border:0px;
+  background: none;
+  color:aliceblue
+}
+
+
+.contact_end img{
+  margin: 10px;
+  
+}

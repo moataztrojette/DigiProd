@@ -12,13 +12,17 @@ const Facture = (props) => {
   const [facture, setFacture] = useState([]);
   const [client, setClient] = useState([]);
   const [dateFacture, setDateFacture] = useState([]);
+  const [countFactureEntrant,setCountFactureEntrant] = useState([])
+  const [countFactureSortant,setCountFactureSortant] = useState([])
+
+
 
   useEffect(() => {
     const data = axios
       .get("http://localhost:4000/api/facture/findall")
       .then((fact) => {
         setFacture(fact.data);
-
+      });
         axios.get("http://localhost:4000/api/facture/finddate").then((date) => {
           setDateFacture(date.data);
         });
@@ -34,7 +38,16 @@ const Facture = (props) => {
           }
           setClient(cl.data);
         });
-      });
+ 
+
+      axios.get("http://localhost:4000/api/facture/count").then((count)=>{
+        setCountFactureEntrant(count.data)
+      })
+
+      axios.get("http://localhost:4000/api/facture/count/facture/sortant").then((countfact)=>{
+        setCountFactureSortant(countfact.data)
+      })
+
   }, []);
 
   const uploadToState = (event) => {
@@ -104,6 +117,9 @@ const Facture = (props) => {
       setFacture(filter.data);
     }
   };
+
+ 
+
 
   const FilteritemsEtatRecu = async (event) => {
     const filter = await axios.get(
@@ -260,14 +276,16 @@ const Facture = (props) => {
             value="entrant"
             onClick={FilteritemsEtatRecu}
           >
-            Factures entrants
+            Factures entrants ({countFactureEntrant})
           </button>
           <button
             className="btn_filter"
             value="sortant"
             onClick={FilteritemsEtatRecu}
+            
+
           >
-            Factures sortants
+            Factures sortants ({countFactureSortant})
           </button>
         </div>
       </div>

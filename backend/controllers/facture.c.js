@@ -149,6 +149,34 @@ module.exports.findPriceSortant = async (req,res)=>
 
 
 
+module.exports.count = async(req,res)=>
+{
+    factures.count({ etatfacture: "entrant" },(err, result)=> {
+        if (err)
+       {
+        res.send(err);
+        } 
+      else {
+        res.json(result);
+      }
+    });
+}
+
+
+module.exports.count_facture_sortant = async(req,res)=>
+{
+    factures.count({ etatfacture: "sortant" },(err, result)=> {
+        if (err)
+       {
+        res.send(err);
+        } 
+      else {
+        res.json(result);
+      }
+    });
+}
+
+
 
 
  

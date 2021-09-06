@@ -101,7 +101,7 @@ const Bibliotheque = (props) => {
       });
     } else {
       let serche = await  axios.get(
-        "http://localhost:4000/api/bibliotheque/serhce/" + event.target.value
+        "http://localhost:4000/api/bibliotheque/serche/" + event.target.value
       );
       setBibliotheque(serche.data);
     }

@@ -14,6 +14,8 @@ const Recu = (props) => {
   const[dateRecu,setDateRecu] = useState([])
   const [client,setClient] = useState([])
   const [depot,setDepot] = useState([])
+  const [recuEntrant,setRecuEntrant] = useState([])
+  const [recuSortant,setRecuSortant] = useState([])
 
 
 
@@ -130,6 +132,15 @@ const Recu = (props) => {
    
   }
 
+  axios.get("http://localhost:4000/api/recu/count/entrant").then((count)=>{
+    setRecuEntrant(count.data)
+  })
+
+  axios.get("http://localhost:4000/api/recu/count/sortant").then((countRecu)=>{
+    setRecuSortant(countRecu.data)
+  })
+
+
   
 
 
@@ -240,9 +251,9 @@ const Recu = (props) => {
               <input
                 type="file"
                 className="form-control"
-                name="fichier"
-                id="exampleInputMobile"
-                required
+                name="fichi
+er"
+                id="exampleInputMobile"                required
                 placeholder="fichier"
                 onChange={uploadToState}
                 />
@@ -287,8 +298,8 @@ const Recu = (props) => {
   </div>
   <div className="serhceInput">
 
-          <button className="btn_filter" value="entrant" onClick={FilteritemsEtatRecu} >Reçus entrants</button>
-          <button className="btn_filter" value="sortant" onClick={FilteritemsEtatRecu}>Reçus sortants</button>
+          <button className="btn_filter" value="entrant" onClick={FilteritemsEtatRecu} >Reçus entrants {recuEntrant}</button>
+          <button className="btn_filter" value="sortant" onClick={FilteritemsEtatRecu}>Reçus sortants {recuSortant}</button>
 
   <div className="select">
           <select

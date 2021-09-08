@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 
 import "react-toastify/dist/ReactToastify.css";
 const Freelancers = (props) => {
@@ -15,7 +16,13 @@ const Freelancers = (props) => {
   const [freelancer, setFreelnacer] = useState([]);
   const [specialite, setSpecialite] = useState([]);
 
+  const [stateSpecialite, setStateSpecialite] = useState([]);
+
+  const color = ["#FFE8E3", "#D7F6FE", "#E1E3E8", "#F9F6DC"];
+
   useEffect(() => {
+    //console.log(tabSpecialite)
+
     axios.get("http://localhost:4000/api/freelancer/findall").then((free) => {
       setFreelnacer(free.data);
 
@@ -42,8 +49,11 @@ const Freelancers = (props) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+
     formData.append("nom", valuesInput.nom);
-    formData.append("specialite", valuesInput.specialite);
+    stateSpecialite.forEach((spec) => {
+      formData.append("specialite", spec);
+    });
     formData.append("fichier", valuesInput.fichier);
 
     const data = await axios.post(
@@ -62,6 +72,7 @@ const Freelancers = (props) => {
     const preventState = freelancer;
     preventState.push(data.data);
     setFreelnacer(preventState);
+    setStateSpecialite([])
   };
 
   const deletedFreelancer = async (id) => {
@@ -92,20 +103,24 @@ const Freelancers = (props) => {
     }
   };
 
-
-  const recherche = async (event)=>{
+  const recherche = async (event) => {
     if (event.target.value === "") {
       axios.get("http://localhost:4000/api/freelancer/findall").then((res) => {
         setFreelnacer(res.data);
       });
     } else {
-      let serche = await  axios.get(
+      let serche = await axios.get(
         "http://localhost:4000/api/freelancer/serche/" + event.target.value
       );
       setFreelnacer(serche.data);
     }
-  }
+  };
 
+  const handleClikSpecialite = async () => {
+    const temp = [...stateSpecialite];
+    temp.push(valuesInput.specialite);
+    setStateSpecialite(temp);
+  };
 
   return (
     <div>
@@ -149,19 +164,6 @@ const Freelancers = (props) => {
             </div>
 
             <div className="form-group">
-              <h5 className="auth-link text-black">Spécialité</h5>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="specialite"
-                required
-                placeholder="spécialité"
-                onChange={MyValueInput}
-              />
-            </div>
-
-            <div className="form-group">
               <h5 className="auth-link text-black">CV(PDF) </h5>
 
               <input
@@ -173,6 +175,34 @@ const Freelancers = (props) => {
                 placeholder="CV"
                 onChange={uploadToState}
               />
+            </div>
+
+            <div className="form-group" style={{display:"flex"}}>
+              {stateSpecialite.map((key) => (
+                <div className="freelancer_spec">{key}</div>
+              ))}
+            </div>
+
+            <h5 className="auth-link text-black">Spécialité</h5>
+
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Spécialité"
+                name="specialite"
+                aria-label=""
+                aria-describedby="basic-addon1"
+                onChange={MyValueInput}
+
+              />
+              <form onClick={handleClikSpecialite}>
+                <div class="input-group-prepend">
+                  <button class="btn btn-success" type="button">
+                    +
+                  </button>
+                </div>
+              </form>
             </div>
 
             <div className="mb-2">
@@ -230,6 +260,7 @@ const Freelancers = (props) => {
               ))}
             </select>
           </div>
+
           <form className="d-flex align-items-center h-100" action="#">
             <div className="input-group">
               <div>
@@ -241,7 +272,6 @@ const Freelancers = (props) => {
                 placeholder="chercher Freelancers"
                 name="serche"
                 onChange={recherche}
-
               />
             </div>
           </form>
@@ -280,7 +310,16 @@ const Freelancers = (props) => {
                   <h3>{free.nom}</h3>
                 </div>
                 <div className="freelancer_specialite">
-                  <h6>{free.specialite}</h6>
+                  {free.specialite.map((key) => (
+                    <h6
+                      style={{
+                        backgroundColor:
+                          color[Math.floor(Math.random() * color.length)],
+                      }}
+                    >
+                      {key}
+                    </h6>
+                  ))}
                 </div>
 
                 <div className="freelancer_cv">
@@ -304,9 +343,7 @@ const Freelancers = (props) => {
                   <a
                     href="https://mail.google.com"
                     className="btn_contacte_freelancer"
-                    target ='_blanck'
-
-
+                    target="_blanck"
                   >
                     <button type="button">Contacter</button>
                   </a>

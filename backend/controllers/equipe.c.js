@@ -1,11 +1,13 @@
 const equipes = require("../models/equipe.model");
 const images = require("../models/image.model");
+const membres = require("../models/membre.model");
 
 module.exports.post = async (req, res) => {
   
   const nm = req.files.imageEquipe.name;
   const newEquipes = new equipes({
     nomEquipe: req.body.nomEquipe,
+    listeFreelancer : req.body.listeFreelancer,
     imageEquipe : nm
   });
   await newEquipes.save()
@@ -49,8 +51,33 @@ module.exports.serche = async (req, res) => {
   };
 
 
+  module.exports.update = async (req,res)=>{
+
+    
+    const resUpdate = await equipes.findOneAndUpdate({_id:req.params.id},{
+        $addToSet : { listeFreelancer : req.body.listeFreelancer}   
+    },{
+        new : true
+    })
+    res.json(resUpdate)
+}
 
 
+module.exports.findMembre = async(req,res)=>{
+  const resSerche = await equipes.findOne({
+    _id : req.params.id
+  }).select('listeFreelancer').populate('listeFreelancer')
 
+  res.json(resSerche)
+
+   }
+
+   module.exports.findNameUser = async(req,res)=>{
+     const resUser = await membres.findOne({
+      _id : req.params.id
+     }).select('nomIndividu')
+     res.json(resUser)
+   }
+  
 
 

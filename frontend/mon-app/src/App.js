@@ -38,6 +38,7 @@ function App() {
           <Route path="/login" component={Login} />
 
           <Home setUser={setUser}>
+
           <Route path="/serche/:id" component={DepotArticle} />
 
 
@@ -58,10 +59,9 @@ function App() {
             <Route path="/digitalisation" component={Digitalisation}/>
             <Route path="/archive" component={Archive}/>
             <Route path="/freelancers" component={Freelancers}/>
-
-
-
             <Route path="/equipe" component={Equipe}/>
+          
+
 
 
             <Route exact path="/" component={Dashbored} />

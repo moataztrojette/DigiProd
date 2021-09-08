@@ -7,20 +7,27 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import "react-toastify/dist/ReactToastify.css";
 const Bibliotheque = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpenEquipe, setModalIsOpenEquipe] = useState(false);
+
   const [modalIsOpenEmp, setModalIsOpenEmp] = useState(false);
+  const [modalIsOpenListe, setModalIsOpenListe] = useState(false);
+
   const [valuesInput, setValues] = useState({});
   const [equipe, setEquipe] = useState([]);
   const [membre , setMembre] = useState([])
   const [specialite,setSpecialite]=useState([])
   const [projet,setProjet]=useState([])
 
+  const [stateUser,setUser] = useState([])
+  const [stateUserId,setStateUserId] = useState({})
 
+  const [statefreelancer,setFreelancer] = useState([])
 
-
+  const [listeFreelancer,setListeFreelancer] = useState([])
 
   const [valuesInput_update, setValues_update] = useState({});
   const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState({
@@ -47,9 +54,8 @@ const Bibliotheque = (props) => {
       setProjet(proj.data)
     })
 
-
-
-
+   
+    
     
   }, []);
 
@@ -242,7 +248,75 @@ const Bibliotheque = (props) => {
     }
   };
 
-    
+
+
+  const handleClikUser = async () => {
+    const NameUser = await axios.get("http://localhost:4000/api/equipe/findname/"+valuesInput.listeFreelancer)
+    const temp2 = [...statefreelancer];
+    temp2.push(NameUser.data)
+    setFreelancer(temp2)
+    console.log(temp2)
+
+    const temp = [...stateUser];
+    temp.push(valuesInput.listeFreelancer);
+    //console.log(temp)
+    setUser(temp);
+    //console.log(stateUser)
+  };
+
+ 
+
+  
+  const handleFormSubmitEquipe = async(event)=>{
+    event.preventDefault()
+    //console.log(stateUserId._id)
+    //console.log(stateUserId)
+
+    console.log(valuesInput)
+    const formData = new FormData();
+    stateUser.forEach((spec) => {
+      formData.append("listeFreelancer", spec);
+    });
+
+    if(stateUser.length > 0 ){
+      await axios.put(
+        "http://localhost:4000/api/equipe/update/" + stateUserId._id,
+        formData
+      );
+  
+      toast("Freelancer a été ajouter avec success ", {
+        type: "success",
+      });
+    }
+    else{
+      toast("Impossible! SVP sélectionner un freelance", {
+        type: "error",
+      });
+    }
+  
+
+ 
+  }
+
+    const listeFreelancerAff = (id)=>{
+        
+        axios
+          .get(
+            "http://localhost:4000/api/equipe/finduser/" +
+            id
+          )
+          .then((listeFr) => {
+            setListeFreelancer(listeFr.data.listeFreelancer); 
+            console.log(listeFr.data)
+              setModalIsOpenListe(true)
+            
+            
+              
+          });
+      
+
+
+    }
 
 
 
@@ -647,6 +721,161 @@ const Bibliotheque = (props) => {
 
 
 
+       
+
+
+
+        <Modal
+        isOpen={modalIsOpenEquipe}
+        shouldCloseOnOverlayClick={false}
+        onRequestClose={() => setModalIsOpenEquipe(false)}
+        style={{
+          content: {
+            top: "50%",
+            left: "55%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+          },
+          overlay: {
+            backgroundColor: "rgba(206, 239, 248,0.8)",
+          },
+        }}
+      >
+        <div className="auth-form-light text-left p-4">
+          <h3 className="font-weight-light">Affecter freelancer à équipe</h3>
+          <br />
+          <form
+            className="pt-3"
+            onSubmit={handleFormSubmitEquipe}
+            encType="multipart/form-data"
+
+          >
+        <div className="form-group" style={{display:"flex"}}>
+              {statefreelancer.map((key) => (
+                <div className="freelancer_spec">{key.nomIndividu}</div>
+              ))}
+            </div>
+
+
+            <h5 className="auth-link text-black">Freelancer</h5>
+
+            <div class="input-group mb-3">
+                  <select
+              className="form-select_Art"
+              aria-label="Default select example"
+              name="listeFreelancer"
+              onChange={MyValueInput}
+
+            >
+
+              {membre.map((meme) => (
+                <option value={meme._id}>{meme.nomIndividu}</option>
+              ))}
+            </select>
+
+
+              <form onClick={handleClikUser} >
+                <div class="input-group-prepend">
+                  <button class="btn btn-success" type="button">
+                    +
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="mb-2">
+              <button
+                type="submit"
+                className="btn btn-block btn-facebook auth-form-btn"
+              >
+                <i className="mdi mr-2" />
+                Terminer{" "}
+              </button>
+            </div>
+
+            <div className="mb-2">
+              <button
+                type="button"
+                onClick={() => setModalIsOpenEquipe(false)}
+                className="btn btn-block btn-facebook auth-form-btn"
+              >
+                <i className="mdi mr-2" />
+                Retour{" "}
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
+
+
+
+      <Modal
+          isOpen={modalIsOpenListe}
+          shouldCloseOnOverlayClick={false}
+          onRequestClose={() => modalIsOpenListe(false)}
+          style={{
+            content: {
+              top: "50%",
+              left: "55%",
+              right: "auto",
+              bottom: "auto",
+              marginRight: "-50%",
+              transform: "translate(-50%, -50%)",
+              
+            },
+            overlay : {
+              backgroundColor:"rgba(206, 239, 248,0.8)",
+            }
+          }}
+        >
+          <div className="auth-form-light text-left p-4">
+            {listeFreelancer.map((li) => (
+                
+            <tbody className="tbody_equipe">
+          <tr className="equipe_body">
+            <td>
+              <div className="equipe_first">
+                <div className="equipe_first_cercle" style={{backgroundImage: `url(${"http://localhost:4000/api/equipe/getImage/" + li._id})`, backgroundSize: 'cover'}}>
+                </div>
+                <div className="equipe_first_info">
+                  <h4>{li.nomIndividu}</h4>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div className="equipe_second">
+                <span>{li.specialite}</span>       
+              </div>
+            </td>
+         
+     
+          </tr>
+
+          <br />
+        </tbody>
+                    ))}
+
+            <br />
+
+            <Link to={"/equipe"}>   <button
+                type="button"
+                onClick={() => setModalIsOpenListe(false)}
+                className="btn btn-block btn-facebook auth-form-btn"
+              >
+                <i className="mdi mr-2" />
+                Retour{" "}
+              </button>
+              </Link>
+          </div>
+        </Modal>
+
+
+
+
+
+
       <ToastContainer></ToastContainer>
 
       <div className="content_Article">
@@ -697,13 +926,20 @@ const Bibliotheque = (props) => {
               <div className="sliderBib" key={eq._id}>
                 <div className="slider_Equipe">
                   <div className="image_silder_equipe">
-                  <img
-                  src={"http://localhost:4000/api/article/getImage/" + eq._id}
+                    
+                    <div>
+                   <img
+                  src={"http://localhost:4000/api/equipe/getImage/" + eq._id}
+                  
+                  onClick={() => listeFreelancerAff(eq._id)}
 
-                />                  </div>
+                />   
+                </div>
+                                          
+                </div>
                   <div class="equipe">
                     <div className="content_slider_equipe">
-                      <h4>{eq.nomEquipe}</h4>
+                      <h4 onClick={() => listeFreelancerAff(eq._id)}>{eq.nomEquipe}</h4>
                       <i
                         className="mdi mdi-delete-sweep"
                         onClick={() => {
@@ -726,6 +962,9 @@ const Bibliotheque = (props) => {
                     </div>
                     <div className="equipe_liste">
                       <img src="/image/Equipe/imageEquipe.png" alt="" />
+                      <AddCircleOutlineIcon style={{
+                          marginLeft: "40%",
+                      }}  onClick={() => {setModalIsOpenEquipe(true); setStateUserId(eq)}}></AddCircleOutlineIcon>
                     </div>
                   </div>
                 </div>

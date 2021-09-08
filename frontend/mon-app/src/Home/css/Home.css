@@ -19083,9 +19083,12 @@ margin-right: 50px;
   
   }
   .equipe_liste{
+    display: flex;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
   }
+
 
 
   .equipe_first img{
@@ -19213,4 +19216,14 @@ margin: 10px;}
 .contact_end img{
   margin: 10px;
   
+}
+.freelancer_spec{
+  padding: 10px;
+  width: 8em;
+  text-align: center;
+  border: 1px solid;
+  background-color: #3B4565;
+  color: var(--light);
+  border-radius: 12px;
+
 }

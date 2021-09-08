@@ -1,13 +1,16 @@
 const freelancers = require("../models/freelancer.model")
 
 module.exports.post = async (req,res)=>{
+
     const newFreelancer = new freelancers({
+        
         nom : req.body.nom,
         specialite : req.body.specialite,
         fichier : req.files.fichier.data,
         typeFile : req.files.fichier.mimetype
     })
     await newFreelancer.save()
+
     res.status(200).send(newFreelancer)
 }
 

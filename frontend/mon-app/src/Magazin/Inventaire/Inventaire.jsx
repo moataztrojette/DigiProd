@@ -5,15 +5,28 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import axios from "axios";
-import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
+import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 const Inventaire = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [valuesInput, setValues] = useState({});
   const [depot, setDepot] = useState([]);
+  const [membre, setMembre] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:4000/api/depot/findall").then((depot) => {
       setDepot(depot.data);
+    });
+
+    axios.get("http://localhost:4000/api/membre/findall").then((mem) => {
+      if (mem.data[0]) {
+        let membreFirst = mem.data[0]._id;
+
+        setValues({
+          responsable: membreFirst,
+        });
+
+        setMembre(mem.data);
+      }
     });
   }, []);
 
@@ -94,9 +107,9 @@ const Inventaire = () => {
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
           },
-          overlay : {
-            backgroundColor:"rgba(206, 239, 248,0.8)",
-          }
+          overlay: {
+            backgroundColor: "rgba(206, 239, 248,0.8)",
+          },
         }}
       >
         <div className="auth-form-light text-left p-5">
@@ -136,16 +149,17 @@ const Inventaire = () => {
             <h5 className="auth-link text-black">Responsable </h5>
 
             <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
+              <select
+                className="select_categorie"
                 name="responsable"
-                required
-                placeholder="Responsable"
                 onChange={MyValueInput}
-              />
+              >
+                {membre.map((meme) => (
+                  <option value={meme._id}>{meme.nomIndividu}</option>
+                ))}
+              </select>
             </div>
+
             <ToastContainer></ToastContainer>
 
             <div className="form-group">
@@ -242,12 +256,14 @@ const Inventaire = () => {
                   className="imageDimCat2"
                 />
 
-                <div className="titleArticle" style={{
-                  padding:15
-                }}>
+                <div
+                  className="titleArticle"
+                  style={{
+                    padding: 15,
+                  }}
+                >
                   <div className="location">
-                    
-                    <LocationOnOutlinedIcon  ></LocationOnOutlinedIcon>
+                    <LocationOnOutlinedIcon></LocationOnOutlinedIcon>
                     <Link to={"/serche/" + res._id}>
                       <h5>Depot {res.nomDepot}</h5>
                     </Link>

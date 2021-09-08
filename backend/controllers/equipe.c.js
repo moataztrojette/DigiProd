@@ -30,7 +30,7 @@ module.exports.getImage = async (req, res) => {
 };
 
 module.exports.findall = async (req, res) => {
-  const allEquipe= await equipes.find()
+  const allEquipe= await equipes.find().populate('listeFreelancer')
   res.json(allEquipe);
 };
 
@@ -51,6 +51,9 @@ module.exports.serche = async (req, res) => {
   };
 
 
+
+
+
   module.exports.update = async (req,res)=>{
 
     
@@ -66,7 +69,7 @@ module.exports.serche = async (req, res) => {
 module.exports.findMembre = async(req,res)=>{
   const resSerche = await equipes.findOne({
     _id : req.params.id
-  }).select('listeFreelancer').populate('listeFreelancer')
+  }).select('listeFreelancer nomEquipe').populate('listeFreelancer')
 
   res.json(resSerche)
 

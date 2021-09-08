@@ -1,5 +1,6 @@
 const membres = require("../models/membre.model");
 const images = require("../models/image.model");
+const equipes = require("../models/equipe.model");
 
 module.exports.post = async (req, res) => {
   
@@ -48,6 +49,7 @@ module.exports.serche = async (req, res) => {
 
 
   module.exports.deleted = async (req, res) => {
+
     await membres.findByIdAndDelete({ _id: req.params.id });
     res.status(200).send("deleted");
   };

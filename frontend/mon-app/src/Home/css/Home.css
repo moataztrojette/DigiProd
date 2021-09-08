@@ -19085,8 +19085,8 @@ margin-right: 50px;
   .equipe_liste{
     display: flex;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: center;
+
   }
 
 
@@ -19226,4 +19226,10 @@ margin: 10px;}
   color: var(--light);
   border-radius: 12px;
 
+}
+.equipe_nb{
+  border-radius: 20px;
+  padding: 8px;
+  color:#06B9E9;
+  background-color: #C6EEF8;
 }

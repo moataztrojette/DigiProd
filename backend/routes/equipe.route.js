@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { post, findall, serche, deleted,getImage,update,findMembre,findNameUser} = require("../controllers/equipe.c");
+const { post, findall, serche, deleted,getImage,update,findMembre,findNameUser,deletedMembreListe} = require("../controllers/equipe.c");
 //const  {isLogin} = require('../middleware/auth')
 router.post("/post", post);
 router.get("/findall", findall);

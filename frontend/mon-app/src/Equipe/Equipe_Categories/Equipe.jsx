@@ -155,7 +155,7 @@ const Bibliotheque = (props) => {
   };
 
   const deletedMembre  = async (id) => {
-    await axios
+     await axios
       .delete("http://localhost:4000/api/membre/deleted/" + id)
       .then((res) => {
         if (res.status !== 200) {
@@ -165,9 +165,15 @@ const Bibliotheque = (props) => {
           const new_state = prevState_membre.filter((memb) => memb._id !== id);
           setMembre(new_state);
           Swal.fire("Membre!", "Membre a été supprimé", "success");
+          
+        
+        
         }
       });
-  };
+
+    
+  
+    };
 
 
   const rechercheEquipe = async (event) => {
@@ -279,7 +285,7 @@ const Bibliotheque = (props) => {
     });
 
     if(stateUser.length > 0 ){
-      await axios.put(
+     const data =  await axios.put(
         "http://localhost:4000/api/equipe/update/" + stateUserId._id,
         formData
       );
@@ -287,6 +293,18 @@ const Bibliotheque = (props) => {
       toast("Freelancer a été ajouter avec success ", {
         type: "success",
       });
+
+      const resFind = equipe.find(
+        (element) => element._id ===  stateUserId._id
+      );
+      const newState = equipe;
+      const index = equipe.indexOf(resFind);
+      newState[index] = data.data;
+      setEquipe(newState);
+
+        setFreelancer([])
+        setUser([])
+    
     }
     else{
       toast("Impossible! SVP sélectionner un freelance", {
@@ -307,9 +325,12 @@ const Bibliotheque = (props) => {
           )
           .then((listeFr) => {
             setListeFreelancer(listeFr.data.listeFreelancer); 
-            console.log(listeFr.data)
-              setModalIsOpenListe(true)
+            //console.log(listeFr.data)
+              if(listeFr.data.listeFreelancer.length>0){
+                setModalIsOpenListe(true)
             
+              }
+              
             
               
           });
@@ -962,8 +983,12 @@ const Bibliotheque = (props) => {
                     </div>
                     <div className="equipe_liste">
                       <img src="/image/Equipe/imageEquipe.png" alt="" />
+
+                        <div className="equipe_nb" style={{
+                          marginLeft: "5%",
+                      }}> + {eq.listeFreelancer.length}</div>
                       <AddCircleOutlineIcon style={{
-                          marginLeft: "40%",
+                          marginLeft: "10%",
                       }}  onClick={() => {setModalIsOpenEquipe(true); setStateUserId(eq)}}></AddCircleOutlineIcon>
                     </div>
                   </div>

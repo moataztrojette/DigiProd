@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import axios from "axios";
+import ModalAdd from "./Components/ModalAdd";
+import ModalUpdate from "./Components/ModalUpdate";
 
 const Service = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -14,7 +16,6 @@ const Service = () => {
     info: {},
   });
 
-  const [valuesInput, setValues] = useState({});
 
   const [valuesInput_update, setValues_update] = useState({});
 
@@ -28,39 +29,14 @@ const Service = () => {
       });
   }, []);
 
-  const MyValueInput = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.value;
-    setValues(res);
-  };
+  
 
   const MyValueInput_update = (event) => {
     let res = valuesInput_update;
     setValues_update({ ...res, [event.target.name]: event.target.value });
   };
 
-  const handleFormSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      const data = await axios.post(
-        "http://localhost:4000/api/service/post",
-        valuesInput
-      );
-
-      toast("Service a été ajouter avec success ", {
-        type: "success",
-      });
-      const preventState = service;
-      preventState.push(data.data);
-      setService(preventState);
-    } catch (error) {
-      if (error.response.data) {
-        toast(error.response.data, {
-          type: "error",
-        });
-      }
-    }
-  };
+ 
 
   const deletedService = async (id) => {
     await axios
@@ -77,214 +53,14 @@ const Service = () => {
       });
   };
 
-  const handleFormSubmitUpdate = async (event) => {
-    event.preventDefault();
-    const datatService = await axios.put(
-      "http://localhost:4000/api/service/update/" + valuesInput_update._id,
-      valuesInput_update
-    );
-
-    toast("Service a été Modifiér avec success ", {
-      type: "success",
-    });
-
-    const resFind = service.find(
-      (element) => element._id === valuesInput_update._id
-    );
-    const newState = service;
-    const index = service.indexOf(resFind);
-    newState[index] = datatService.data;
-    setService(newState);
-  };
+ 
 
   return (
     <div>
-      <Modal
-        isOpen={modalIsOpen}
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={() => setModalIsOpen(false)}
-        style={{
-          content: {
-            top: "50%",
-            left: "55%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-          },
-          overlay : {
-            backgroundColor:"rgba(206, 239, 248,0.8)",
-          }
-        }}
-      >
-        <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Ajouter un nouveau service</h3>
-          <br />
-          <form className="pt-3" onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <h5 className="auth-link text-black">Nom Service</h5>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="nomService"
-                required
-                placeholder="nom Service"
-                onChange={MyValueInput}
-              />
-            </div>
-            <h5 className="auth-link text-black">Description </h5>
+      {modalIsOpen ==true ? (<ModalAdd service={service} setService={setService} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
+      {modalUpdateIsOpen.open ==true ? (<ModalUpdate MyValueInput_update={MyValueInput_update} valuesInput_update={valuesInput_update} setValues_update={setValues_update} service={service} setService={setService} modalUpdateIsOpen={modalUpdateIsOpen} setModalUpdateIsOpen={setModalUpdateIsOpen} />) : (<div></div>)  }  
 
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="description"
-                required
-                placeholder="description"
-                onChange={MyValueInput}
-              />
-            </div>
-
-            <h5 className="auth-link text-black">Contact (adresse email) </h5>
-
-            <div className="form-group">
-              <input
-                type="email"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="contact"
-                required
-                placeholder="contact"
-                onChange={MyValueInput}
-              />
-            </div>
-            <ToastContainer></ToastContainer>
-
-            <div className="mb-2">
-              <button
-                type="submit"
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Terminer{" "}
-              </button>
-            </div>
-
-            <div className="mb-2">
-              <button
-                type="button"
-                onClick={() => setModalIsOpen(false)}
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Retour{" "}
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal>
-
-      <Modal
-        isOpen={modalUpdateIsOpen.open}
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={() => {
-          setModalUpdateIsOpen({
-            open: false,
-            info: {},
-          });
-          setValues_update({});
-        }}
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-          },
-        }}
-      >
-        <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Modifier service</h3>
-          <br />
-          <form className="pt-3" onSubmit={handleFormSubmitUpdate}>
-            <div className="form-group">
-              <h5 className="auth-link text-black">Nom Service</h5>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="nomService"
-                required
-                value={valuesInput_update.nomService}
-                placeholder="nom Service"
-                onChange={MyValueInput_update}
-              />
-            </div>
-            <h5 className="auth-link text-black">Description </h5>
-
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="description"
-                required
-                value={valuesInput_update.description}
-                placeholder="description"
-                onChange={MyValueInput_update}
-              />
-            </div>
-
-            <h5 className="auth-link text-black">Contact (adresse email) </h5>
-
-            <div className="form-group">
-              <input
-                type="email"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="contact"
-                disabled
-                required
-                value={valuesInput_update.contact}
-                placeholder="contact"
-                onChange={MyValueInput_update}
-              />
-            </div>
-            <ToastContainer></ToastContainer>
-
-            <div className="mb-2">
-              <button
-                type="submit"
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Terminer{" "}
-              </button>
-            </div>
-
-            <div className="mb-2">
-              <button
-                type="button"
-                onClick={() =>
-                  setModalUpdateIsOpen({
-                    open: false,
-                    info: {},
-                  })
-                }
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Retour{" "}
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal>
-
+      
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">

@@ -5,6 +5,9 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import "react-toastify/dist/ReactToastify.css";
+import ModalAdd from "./Components/ModalAdd";
+
+
 const Article = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [valuesInput, setValues] = useState({});
@@ -17,52 +20,18 @@ const Article = (props) => {
   const backImage = ["/image/Article/back1.png","/image/Article/back2.png","/image/Article/back3.png"]
  
 
-  const uploadToState = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.files[0];
-    setValues(res);
-  };
-
-  const MyValueInput = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.value;
-    setValues(res);
-  };
+  
 
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("nomArticle", valuesInput.nomArticle);
-    formData.append("categorieArticle", valuesInput.categorieArticle);
-    formData.append("quantite", valuesInput.quantite);
-    formData.append("localisation", valuesInput.localisation);
-    formData.append("statut", valuesInput.statut);
-    formData.append("imageArticle", valuesInput.imageArticle);
 
-    const data = await axios.post(
-      "http://localhost:4000/api/article/post",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-
-    toast("Article a été ajouter avec success ", {
-      type: "success",
-    });
-    const prevStateArt = allArticle;
-    prevStateArt.push(data.data);
-    setArticle(prevStateArt);
-  };
+ 
 
   useEffect(() => {
     axios.get("http://localhost:4000/api/article/findall").then((Art) => {
       setArticle(Art.data);
     });
 
+   
    
 
 
@@ -87,6 +56,19 @@ const Article = (props) => {
       }
     });
   }, []);
+
+  
+
+  const MyValueInput = (event) => {
+    let res = valuesInput;
+    res[event.target.name] = event.target.value;
+    setValues(res);
+  };
+
+
+
+
+
 
   const deletedArticleWithId = async (id) => {
     await axios
@@ -145,137 +127,8 @@ const Article = (props) => {
   return (
     <div>
       <div className="content_Article">
-        <Modal
-          isOpen={modalIsOpen}
-          shouldCloseOnOverlayClick={false}
-          onRequestClose={() => setModalIsOpen(false)}
-          style={{
-            content: {
-              top: "50%",
-              left: "55%",
-              right: "auto",
-              bottom: "auto",
-              marginRight: "-50%",
-              transform: "translate(-50%, -50%)",
-              
-            },
-            overlay : {
-              backgroundColor:"rgba(206, 239, 248,0.8)",
-            }
-          }}
-        >
-          <div className="auth-form-light text-left p-4">
-            <h3 className="font-weight-light">Ajouter un nouveau Article</h3>
-            <br />
-            <form
-              className="pt-3"
-              onSubmit={handleFormSubmit}
-              encType="multipart/form-data"
-            >
-              <div className="form-group">
-                <h5 className="auth-link text-black"> Nom de l’article</h5>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="exampleInputUsername2"
-                  name="nomArticle"
-                  required
-                  placeholder="Nom de l’article"
-                  onChange={MyValueInput}
-                />
-              </div>
-              <h5 className="auth-link text-black">Catégorie </h5>
 
-              <div className="form-group">
-                <select
-                  className="select_categorie"
-                  name="categorieArticle"
-                  onChange={MyValueInput}
-                >
-                  {categorie.map((cat) => (
-                    <option value={cat._id}>{cat.nomCategorie}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-group">
-                <h5 className="auth-link text-black"> Quantité</h5>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="exampleInputUsername2"
-                  name="quantite"
-                  required
-                  placeholder="quantite"
-                  onChange={MyValueInput}
-                />
-              </div>
-              <h5 className="auth-link text-black">Localisation </h5>
-
-              <div className="form-group">
-                <select
-                  className="select_categorie"
-                  name="localisation"
-                  onChange={MyValueInput}
-                >
-                  {depot.map((dep) => (
-                    <option value={dep._id}>{dep.nomDepot}</option>
-                  ))}
-                </select>
-              </div>
-
-              <h5 className="auth-link text-black">Statut </h5>
-
-              <div className="form-group">
-                <select
-                  className="select_categorie"
-                  name="statut"
-                  onChange={MyValueInput}
-                >
-                  <option value="enlocation">en location</option>
-                  <option value="dansdepot">dans dépot </option>
-                  <option value="reservé">reservé</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <h5 className="auth-link text-black">Image </h5>
-
-                <input
-                  type="file"
-                  className="form-control"
-                  name="imageArticle"
-                  id="exampleInputMobile"
-                  required
-                  placeholder="image"
-                  onChange={uploadToState}
-                />
-              </div>
-
-              <div className="mb-2">
-                <button
-                  type="submit"
-                  className="btn btn-block btn-facebook auth-form-btn"
-                >
-                  <i className="mdi mr-2" />
-                  Terminer{" "}
-                </button>
-              </div>
-
-              <div className="mb-2">
-                <button
-                  type="button"
-                  onClick={() => setModalIsOpen(false)}
-                  className="btn btn-block btn-facebook auth-form-btn"
-                >
-                  <i className="mdi mr-2" />
-                  Retour{" "}
-                </button>
-              </div>
-            </form>
-          </div>
-        </Modal>
-        <ToastContainer></ToastContainer>
+      {modalIsOpen ==true ? (<ModalAdd depot={depot} setDepot={setDepot} allArticle={allArticle} setArticle={setArticle} categorie={categorie} valuesInput={valuesInput} setValues={setValues}   modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} MyValueInput={MyValueInput} />) : (<div></div>)  }      
 
         <div
           className="categorie_article"

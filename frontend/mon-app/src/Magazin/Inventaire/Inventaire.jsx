@@ -4,8 +4,12 @@ import Modal from "react-modal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+
 import axios from "axios";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
+import ModalAdd from "./Components/ModalAdd";
+
+
 const Inventaire = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [valuesInput, setValues] = useState({});
@@ -30,52 +34,9 @@ const Inventaire = () => {
     });
   }, []);
 
-  const MyValueInput = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.value;
-    setValues(res);
-  };
+ 
 
-  const uploadToState = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.files[0];
-    setValues(res);
-  };
 
-  const handleFormSubmit = async (event) => {
-    try {
-      event.preventDefault();
-
-      const formData = new FormData();
-      formData.append("nomDepot", valuesInput.nomDepot);
-      formData.append("localisation", valuesInput.localisation);
-      formData.append("responsable", valuesInput.responsable);
-      formData.append("imageDepot", valuesInput.imageDepot);
-
-      const dep = await axios.post(
-        "http://localhost:4000/api/depot/post",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      toast("Dépot a été ajouter avec success ", {
-        type: "success",
-      });
-
-      const preventDepot = depot;
-      preventDepot.push(dep.data);
-      setDepot(preventDepot);
-    } catch (error) {
-      if (error.response.data) {
-        toast(error.response.data, {
-          type: "error",
-        });
-      }
-    }
-  };
 
   const deletedDepotWithId = async (id) => {
     await axios
@@ -94,111 +55,8 @@ const Inventaire = () => {
 
   return (
     <div>
-      <Modal
-        isOpen={modalIsOpen}
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={() => setModalIsOpen(false)}
-        style={{
-          content: {
-            top: "50%",
-            left: "55%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-          },
-          overlay: {
-            backgroundColor: "rgba(206, 239, 248,0.8)",
-          },
-        }}
-      >
-        <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Ajouter un nouveau Depot</h3>
-          <br />
-          <form
-            className="pt-3"
-            onSubmit={handleFormSubmit}
-            encType="multipart/form-data"
-          >
-            <div className="form-group">
-              <h5 className="auth-link text-black">Nom dépot</h5>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="nomDepot"
-                required
-                placeholder="Nom dépot"
-                onChange={MyValueInput}
-              />
-            </div>
-            <h5 className="auth-link text-black">localisation </h5>
+       {modalIsOpen ==true ? (<ModalAdd depot={depot} setDepot={setDepot} membre={membre} setMembre={setMembre} valuesInput={valuesInput} setValues={setValues}   modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
 
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="localisation"
-                required
-                placeholder="localisation"
-                onChange={MyValueInput}
-              />
-            </div>
-
-            <h5 className="auth-link text-black">Responsable </h5>
-
-            <div className="form-group">
-              <select
-                className="select_categorie"
-                name="responsable"
-                onChange={MyValueInput}
-              >
-                {membre.map((meme) => (
-                  <option value={meme._id}>{meme.nomIndividu}</option>
-                ))}
-              </select>
-            </div>
-
-            <ToastContainer></ToastContainer>
-
-            <div className="form-group">
-              <h5 className="auth-link text-black">Image </h5>
-
-              <input
-                type="file"
-                className="form-control"
-                name="imageDepot"
-                id="exampleInputMobile"
-                required
-                placeholder="image"
-                onChange={uploadToState}
-              />
-            </div>
-
-            <div className="mb-2">
-              <button
-                type="submit"
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Terminer{" "}
-              </button>
-            </div>
-
-            <div className="mb-2">
-              <button
-                type="button"
-                onClick={() => setModalIsOpen(false)}
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Retour{" "}
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal>
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">

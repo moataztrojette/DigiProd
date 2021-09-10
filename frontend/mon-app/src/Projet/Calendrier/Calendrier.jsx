@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
+import ModalAdd from "./components/ModalAdd";
+
 
 const Calendrier = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const [valuesInput, setValues] = useState({});
-
   const [calendar, setCalendar] = useState([]);
 
   useEffect(() => {
+      console.log(modalIsOpen)    
     axios.get("http://localhost:4000/api/calendar/findall").then((data) => {
       setCalendar(data.data);
     });
@@ -50,167 +47,12 @@ const Calendrier = () => {
     return res;
   };
 
-  const MyValueInput = (event) => {
-    let res = valuesInput;
-    res[event.target.name] = event.target.value;
-    setValues(res);
-  };
 
-  const deletedTache = async (id) => {
-    await axios
-      .delete("http://localhost:4000/api/calendar/delete/" + id)
-      .then((verife) => {
-        if (verife.status !== 200) {
-          Swal.fire("Deleted!", "Your file has been deleted.", "error");
-        } else {
-          const preventStatu = calendar;
-          const newState = preventStatu.filter((cal) => cal._id != id);
-          setCalendar(newState);
-          Swal.fire("Tache", "Tache a été supprimé", "success");
-        }
-      });
-  };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const data = await axios.post(
-      "http://localhost:4000/api/calendar/post",
-      valuesInput
-    );
-
-    toast(" Tâche  a été ajouter avec success ", {
-      type: "success",
-    });
-
-    const preventState = calendar;
-    preventState.push(data.data);
-    setCalendar(preventState);
-  };
 
   return (
     <div>
-      <Modal
-        isOpen={modalIsOpen}
-        shouldCloseOnOverlayClick={false}
-        onRequestClose={() => setModalIsOpen(false)}
-        style={{
-          content: {
-            top: "50%",
-            left: "55%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-          },
-          overlay : {
-            backgroundColor:"rgba(206, 239, 248,0.8)",
-          }
-        }}
-      >
-        <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Ajouter un nouveau Tâche</h3>
-          <br />
-          <form className="pt-3" onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <h5 className="auth-link text-black">Nom de la Tâche</h5>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="title"
-                required
-                placeholder="title"
-                onChange={MyValueInput}
-              />
-            </div>
-            <h5 className="auth-link text-black">Date de début </h5>
-
-            <div className="form-group">
-              <input
-                type="date"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="start"
-                required
-                onChange={MyValueInput}
-              />
-            </div>
-
-            <h5 className="auth-link text-black">Date de Fin </h5>
-            <div className="form-group">
-              <input
-                type="date"
-                className="form-control"
-                id="exampleInputUsername2"
-                name="end"
-                required
-                onChange={MyValueInput}
-              />
-            </div>
-
-            <div className="form-group">
-              <h5 className="auth-link text-black">Pourcentage </h5>
-              <input
-                type="range"
-                id="volume"
-                name="pourcentage"
-                min="0"
-                max="100"
-                onChange={MyValueInput}
-              ></input>
-            </div>
-
-            <h5 className="auth-link text-black">Heure début </h5>
-            <div className="form-group">
-              <input
-                type="time"
-                id="appt"
-                name="heureDebut"
-                min="07:00"
-                max="00:00"
-                required
-                onChange={MyValueInput}
-              ></input>
-            </div>
-
-            <h5 className="auth-link text-black">Heure fin </h5>
-            <div className="form-group">
-              <input
-                type="time"
-                id="appt"
-                name="heureFin"
-                min="07:00"
-                max="00:00"
-                required
-                onChange={MyValueInput}
-              ></input>
-            </div>
-
-            <div className="mb-2">
-              <button
-                type="submit"
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Terminer{" "}
-              </button>
-            </div>
-
-            <div className="mb-2">
-              <button
-                type="button"
-                onClick={() => setModalIsOpen(false)}
-                className="btn btn-block btn-facebook auth-form-btn"
-              >
-                <i className="mdi mr-2" />
-                Retour{" "}
-              </button>
-            </div>
-          </form>
-        </div>
-      </Modal>
-      <ToastContainer></ToastContainer>
-
+          {modalIsOpen ==true ? (<ModalAdd calendar={calendar} setCalendar={setCalendar} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">

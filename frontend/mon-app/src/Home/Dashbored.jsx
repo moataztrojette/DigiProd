@@ -128,7 +128,11 @@ const Dashbored = () => {
     <h1>Dashbored</h1>
 
     <div style={{
-        display:"flex"
+        display:"flex",
+        flexDirection:"row",
+        flexWrap:"wrap",
+        Overflow:"hidden",
+
     }}>
     <div>
     <Bar
@@ -228,7 +232,10 @@ const Dashbored = () => {
 
 <div style={{
     display:"flex",
+    flexDirection:"row",
+    flexWrap:"wrap",
     Overflow:"hidden"
+    
 }}>
     <div>
     <Line

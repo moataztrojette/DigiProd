@@ -19019,6 +19019,8 @@ margin-right: 50px;
   height: 12em;
   border-radius: 12px;
   background-color: #C6EEF8;
+  flex-wrap: wrap;
+  overflow: hidden;
 
 }
 
@@ -19131,6 +19133,17 @@ justify-content: center;
     border: 0px solid;
     margin-right: 10px;
 }
+
+
+.location_first_cercle{
+  width: 60px;
+  height: 60px;
+  border-radius: 25px;
+  border: 0px solid;
+  margin-right: 10px;
+}
+
+
 .equipe_body{
     background-color: #F8F9FA;
     

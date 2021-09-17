@@ -22,6 +22,7 @@ import Digitalisation from "./Documents/Digitalisation/Digitalisation.jsx";
 import Archive from "./Documents/Archive/Archive.jsx";
 import Equipe from "./Equipe/Equipe_Categories/Equipe"
 import Freelancers from "./Equipe/Freelancers/Freelancers.jsx";
+import Suivie from "./Locations/Suivie.jsx";
 
 
 
@@ -60,6 +61,7 @@ function App() {
             <Route path="/archive" component={Archive}/>
             <Route path="/freelancers" component={Freelancers}/>
             <Route path="/equipe" component={Equipe}/>
+            <Route path ="/suivie" component={Suivie}/>
           
 
 

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -22,7 +20,7 @@ const Service = () => {
   const [service, setService] = useState([]);
 
   useEffect(() => {
-    const data = axios
+    axios
       .get("http://localhost:4000/api/service/findall")
       .then((service) => {
         setService(service.data);
@@ -42,7 +40,7 @@ const Service = () => {
     await axios
       .delete("http://localhost:4000/api/service/deleted/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status !=200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = service;
@@ -57,8 +55,8 @@ const Service = () => {
 
   return (
     <div>
-      {modalIsOpen ==true ? (<ModalAdd service={service} setService={setService} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
-      {modalUpdateIsOpen.open ==true ? (<ModalUpdate MyValueInput_update={MyValueInput_update} valuesInput_update={valuesInput_update} setValues_update={setValues_update} service={service} setService={setService} modalUpdateIsOpen={modalUpdateIsOpen} setModalUpdateIsOpen={setModalUpdateIsOpen} />) : (<div></div>)  }  
+      {modalIsOpen === true ? (<ModalAdd service={service} setService={setService} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
+      {modalUpdateIsOpen.open === true ? (<ModalUpdate MyValueInput_update={MyValueInput_update} valuesInput_update={valuesInput_update} setValues_update={setValues_update} service={service} setService={setService} modalUpdateIsOpen={modalUpdateIsOpen} setModalUpdateIsOpen={setModalUpdateIsOpen} />) : (<div></div>)  }  
 
       
       <div className="content_Article">

@@ -1,9 +1,7 @@
-import React, { useEffect, useState} from "react";
+import React from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { Link } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import axios from "axios";
 import Modal from "react-modal";
 

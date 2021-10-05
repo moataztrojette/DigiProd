@@ -1,16 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
 
-const Bibliotheque = (props) => {
+const Bibliotheque = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [bibliotheque, setBibliotheque] = useState([]);
   const [dateBibliotheque, setDateBibliotheque] = useState([]);
@@ -58,7 +56,7 @@ const Bibliotheque = (props) => {
 
 
   const rechercheDoc = async (event)=>{
-    if (event.target.value === "") {
+    if (event.target.value == "") {
       axios.get("http://localhost:4000/api/bibliotheque/findall").then((res) => {
         setBibliotheque(res.data);
       });
@@ -74,11 +72,11 @@ const Bibliotheque = (props) => {
     await axios
       .delete("http://localhost:4000/api/bibliotheque/deleted/" + id)
       .then((res) => {
-        if (res.status !== 200) {
+        if (res.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const prevState = bibliotheque;
-          const newState = prevState.filter((bib) => bib._id !== id);
+          const newState = prevState.filter((bib) => bib._id != id);
           setBibliotheque(newState);
           Swal.fire("Bibliotheque!", "Documents a été supprimé", "success");
         }
@@ -142,6 +140,7 @@ const Bibliotheque = (props) => {
             <h3>Bibliothèque</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>

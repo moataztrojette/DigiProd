@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
@@ -19,7 +17,7 @@ const Facture = (props) => {
 
 
   useEffect(() => {
-    const data = axios
+    axios
       .get("http://localhost:4000/api/facture/findall")
       .then((fact) => {
         setFacture(fact.data);
@@ -57,7 +55,7 @@ const Facture = (props) => {
     await axios
       .delete("http://localhost:4000/api/facture/delete/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = facture;
@@ -94,7 +92,7 @@ const Facture = (props) => {
 
   return (
     <div>
-        {modalIsOpen ==true ? (<ModalAdd client={client} setClient={setClient} facture={facture} setFacture={setFacture} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} valuesInput={valuesInput} setValues={setValues} />) : (<div></div>)  }      
+        {modalIsOpen ===true ? (<ModalAdd client={client} setClient={setClient} facture={facture} setFacture={setFacture} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} valuesInput={valuesInput} setValues={setValues} />) : (<div></div>)  }      
  
 
       <div className="content_Article">
@@ -104,7 +102,7 @@ const Facture = (props) => {
             <i class="mdi mdi-chevron-right"></i>
             <h3>Factures</h3>
             <img
-              src="./image/icons/Ellipse206.png"
+              src="./image/icons/Ellipse206.png" alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
@@ -115,7 +113,7 @@ const Facture = (props) => {
             value="entrant"
             onClick={FilteritemsEtatRecu}
           >
-            Factures entrants ({countFactureEntrant})
+            Factures entrantes ({countFactureEntrant})
           </button>
           <button
             className="btn_filter"
@@ -124,12 +122,12 @@ const Facture = (props) => {
             
 
           >
-            Factures sortants ({countFactureSortant})
+            Factures sortantes ({countFactureSortant})
           </button>
         </div>
       </div>
       <div className="image_facture">
-        <img src="/image/facture/Groupe934.png" className="image_fac"></img>
+        <img src="/image/facture/Groupe934.png" alt="erreur" className="image_fac"></img>
       </div>
 
       <div
@@ -173,7 +171,7 @@ const Facture = (props) => {
         {facture.length > 0 ? (
           <div className="title_facture">
             <ul className="ul_fac">
-              <li>Client (pour)</li>
+              <li>Client</li>
               <li>Description du produit / service</li>
               <li>Prix</li>
               <li>Date d'échéance</li>

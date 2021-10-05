@@ -1,12 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import {ToastContainer } from "react-toastify";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 
 import "react-toastify/dist/ReactToastify.css";
 const Digitalisation = (props) => {
@@ -32,7 +29,6 @@ const Digitalisation = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
   };
 
   
@@ -132,7 +128,7 @@ const Digitalisation = (props) => {
             <i class="mdi mdi-chevron-right"></i>
             <h3>Digitalisation</h3>
             <img
-              src="./image/icons/Ellipse206.png"
+              src="./image/icons/Ellipse206.png" alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>

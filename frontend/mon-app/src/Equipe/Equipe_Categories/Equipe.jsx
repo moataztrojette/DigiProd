@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -88,7 +85,7 @@ const Bibliotheque = (props) => {
   };
 
   const rechercheEquipe = async (event) => {
-    if (event.target.value === "") {
+    if (event.target.value == "") {
       axios.get("http://localhost:4000/api/equipe/findall").then((res) => {
         setEquipe(res.data);
       });
@@ -107,7 +104,7 @@ const Bibliotheque = (props) => {
   };
 
   const FilterSpecialite = async (event) => {
-    if (event.target.value === "all") {
+    if (event.target.value == "all") {
       axios.get("http://localhost:4000/api/membre/findall").then((res) => {
         setMembre(res.data);
       });
@@ -120,7 +117,7 @@ const Bibliotheque = (props) => {
   };
 
   const FilterProjet = async (event) => {
-    if (event.target.value === "all") {
+    if (event.target.value =="all") {
       axios.get("http://localhost:4000/api/membre/findall").then((res) => {
         setMembre(res.data);
       });
@@ -261,7 +258,7 @@ const Bibliotheque = (props) => {
             <i class="mdi mdi-chevron-right"></i>
             <h3>Catégories</h3>
             <img
-              src="./image/icons/Ellipse206.png"
+              src="./image/icons/Ellipse206.png" alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
@@ -300,10 +297,11 @@ const Bibliotheque = (props) => {
                 <div className="slider_Equipe">
                   <div className="image_silder_equipe">
                     <div>
-                      <img
+                      <img 
                         src={
                           "http://localhost:4000/api/equipe/getImage/" + eq._id
                         }
+                        alt="erreur"
                         onClick={() => listeFreelancerAff(eq._id)}
                       />
                     </div>
@@ -425,7 +423,7 @@ const Bibliotheque = (props) => {
       <table className="table_equipe">
         <tbody>
           <tr className="table_tr">
-            <th>Nom prénom et specialité</th>
+            <th>Nom prénom et spécialité</th>
             <th>Projets actuels</th>
             <th>Téléphone et email</th>
             <th />

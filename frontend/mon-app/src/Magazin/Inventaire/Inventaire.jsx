@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+import { Link} from "react-router-dom";
+
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
@@ -42,7 +41,7 @@ const Inventaire = () => {
     await axios
       .delete("http://localhost:4000/api/depot/deleted/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = depot;
@@ -55,7 +54,7 @@ const Inventaire = () => {
 
   return (
     <div>
-       {modalIsOpen ==true ? (<ModalAdd depot={depot} setDepot={setDepot} membre={membre} setMembre={setMembre} valuesInput={valuesInput} setValues={setValues}   modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
+       {modalIsOpen === true ? (<ModalAdd depot={depot} setDepot={setDepot} membre={membre} setMembre={setMembre} valuesInput={valuesInput} setValues={setValues}   modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
 
       <div className="content_Article">
         <div className="categorie_article">
@@ -65,6 +64,7 @@ const Inventaire = () => {
             <h3>Inventaire</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
@@ -75,7 +75,7 @@ const Inventaire = () => {
             onClick={() => setModalIsOpen(true)}
             className="btn btn-primary-color_inv"
           >
-            Nouveau depot +{" "}
+            Nouveau dépôt +{" "}
           </button>
         </div>
       </div>
@@ -91,6 +91,7 @@ const Inventaire = () => {
                 <div class="image__overlay2 image__overlay--primary">
                   <img
                     src="./image/icons/Group944.png"
+                    alt="erreur"
                     onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",
@@ -112,6 +113,7 @@ const Inventaire = () => {
                   src={"http://localhost:4000/api/depot/getImage/" + res._id}
                   id="barChart"
                   className="imageDimCat2"
+                  alt="erreur"
                 />
 
                 <div
@@ -123,7 +125,7 @@ const Inventaire = () => {
                   <div className="location">
                     <LocationOnOutlinedIcon></LocationOnOutlinedIcon>
                     <Link to={"/serche/" + res._id}>
-                      <h5>Depot {res.nomDepot}</h5>
+                      <h5>Dépôt {res.nomDepot}</h5>
                     </Link>
                   </div>
                 </div>

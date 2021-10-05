@@ -19,7 +19,7 @@ const Login = (props) => {
     event.preventDefault();
 
     try {
-      const data = await axios.post(
+       await axios.post(
         "http://localhost:4000/api/user/login",
         valueInput
       );
@@ -53,16 +53,16 @@ const Login = (props) => {
                   <br />
                   <h6 class="mb-4">Connecté-vous avec</h6>
                   <div class="facebook_google">
-                    <a href="#" class="login100-social-item">
+                    <div class="login100-social-item">
                       <i class="fa fa-facebook-f"></i>
-                    </a>
+                    </div>
 
-                    <a href="#" class="login100-social-item">
+                    <div class="login100-social-item">
                       <img
                         src="https://colorlib.com/etc/lf/Login_v9/images/icons/icon-google.png"
                         alt="GOOGLE"
                       />
-                    </a>
+                    </div>
                   </div>
                 </div>
                 <form class="form" onSubmit={handleFormSubmit}>

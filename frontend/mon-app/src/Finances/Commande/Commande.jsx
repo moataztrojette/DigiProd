@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
 const Commande = (props) => {
@@ -22,7 +20,7 @@ const Commande = (props) => {
 
 
   useEffect(() => {
-    const data = axios
+   axios
       .get("http://localhost:4000/api/commande/findall")
       .then((com) => {
         setCommande(com.data);
@@ -65,7 +63,7 @@ const Commande = (props) => {
     await axios
       .delete("http://localhost:4000/api/commande/delete/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = commande;
@@ -100,7 +98,7 @@ const Commande = (props) => {
   return (
     <div>
    
-   {modalIsOpen ==true ? (<ModalAdd client={client} setClient={setClient} commande={commande } setCommande={setCommande} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} valuesInput={valuesInput} setValues={setValues} />) : (<div></div>)  }      
+   {modalIsOpen ===true ? (<ModalAdd client={client} setClient={setClient} commande={commande } setCommande={setCommande} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} valuesInput={valuesInput} setValues={setValues} />) : (<div></div>)  }      
 
       <div className="content_Article">
         <div className="categorie_article">
@@ -110,6 +108,7 @@ const Commande = (props) => {
             <h3>bon de commande</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
@@ -132,7 +131,7 @@ const Commande = (props) => {
         </div>
       </div>
       <div className="image_facture">
-        <img src="/image/facture/Groupe939.png" className="image_fac"></img>
+        <img src="/image/facture/Groupe939.png" alt="erreur" className="image_fac"></img>
       </div>
 
       <div

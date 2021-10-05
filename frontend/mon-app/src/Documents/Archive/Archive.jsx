@@ -1,17 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
 
 
-const Archive = (props) => {
+const Archive = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [archive, setArchive] = useState([]);
   const [dateArchive, setDateArchive] = useState([]);
@@ -34,20 +31,7 @@ const Archive = (props) => {
  
   
 
-  const Filteritems = async (event) => {
-    if (event.target.value === "all") {
-      axios
-        .get("http://localhost:4000/api/archive/findall")
-        .then((res) => {
-          setArchive(res.data);
-        });
-    } else {
-      const filter = await axios.get(
-        "http://localhost:4000/api/archive/filter/" + event.target.value
-      );
-      setArchive(filter.data);
-    }
-  };
+
 
   const rechercheDoc = async (event)=>{
     if (event.target.value === "") {
@@ -81,7 +65,7 @@ const Archive = (props) => {
 
   return (
     <div>
-       {modalIsOpen ==true ? (<ModalAdd archive={archive} setArchive={setArchive} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
+       {modalIsOpen === true ? (<ModalAdd archive={archive} setArchive={setArchive} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
 
 
       <div className="content_Article">
@@ -91,7 +75,8 @@ const Archive = (props) => {
             <i class="mdi mdi-chevron-right"></i>
             <h3>Archive</h3>
             <img
-              src="./image/icons/Ellipse206.png"
+              src="/image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
@@ -144,8 +129,9 @@ const Archive = (props) => {
                     href={"http://localhost:4000/api/archive/file/" + arch._id}
                     download
                     target="_blank"
+                    alt="erreur"
                   >
-                 <img src="/image/documents/doc.png" className="image_archive"/></a>
+                 <img src="/image/documents/doc.png" alt="erreur" className="image_archive"/></a>
 
                 </div>
               </div>

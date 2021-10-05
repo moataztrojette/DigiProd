@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { Bar ,Line,Pie,Doughnut } from 'react-chartjs-2';
+import { Bar ,Line,Doughnut } from 'react-chartjs-2';
 import dateformat from 'dateformat'
 
 import axios from 'axios'
@@ -32,8 +32,6 @@ const Dashbored = () => {
         let categorie = [];
         let nbArticleCat = {};
 
-        let dateFacture = [];
-        let PrixFact ={};
 
 
         

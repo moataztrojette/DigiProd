@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import axios from "axios";
 import Modal from "react-modal";
 
@@ -76,7 +75,7 @@ const ModalAdd = (props) => {
         }}
       >
         <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Ajouter un nouveau Depot</h3>
+          <h3 className="font-weight-light">Ajouter un nouveau Dépôt</h3>
           <br />
           <form
             className="pt-3"
@@ -84,7 +83,7 @@ const ModalAdd = (props) => {
             encType="multipart/form-data"
           >
             <div className="form-group">
-              <h5 className="auth-link text-black">Nom dépot</h5>
+              <h5 className="auth-link text-black">Nom dépôt</h5>
               <input
                 type="text"
                 className="form-control"
@@ -95,7 +94,7 @@ const ModalAdd = (props) => {
                 onChange={MyValueInput}
               />
             </div>
-            <h5 className="auth-link text-black">localisation </h5>
+            <h5 className="auth-link text-black">Localisation </h5>
 
             <div className="form-group">
               <input

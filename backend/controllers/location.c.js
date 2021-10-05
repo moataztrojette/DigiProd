@@ -45,12 +45,7 @@ module.exports.findall = async (req, res) => {
     }
 
 
-    module.exports.serche = async (req, res) => {
-      const SercheArt = await articles.find({
-        nomArticle: { $regex: req.params.name, $options: "i" },
-      }).populate("article");
-      res.json(SercheArt);
-    };
+    
 
     module.exports.getImage = async (req, res) => {
       const id = req.params.idImage;
@@ -65,13 +60,51 @@ module.exports.findall = async (req, res) => {
     res.status(200).send("deleted");
   };
 
-  module.exports.ArticlesLoués = async (req,res)=>{
+ 
 
-  } 
+  module.exports.filterArticleLoué = async (req,res)=>{
+    const tab =[]
+    const resArt = await location.find().populate('article')
 
-  module.exports.FilteritemsEtatFacture = async (req,res)=>{
-    const FilterFacture = await factures.find({
-        etatfacture: req.params.name
-    }).populate('client')
-    res.json(FilterFacture)
+    for (let pas = 0; pas < resArt.length; pas++)
+    {
+      if(resArt[pas].article.statut == "reservé"){
+        tab.push(resArt[pas])
+      }
+    }
+    
+    res.json(tab)
   }
+
+
+  module.exports.filterArticleNonLoué = async (req,res)=>{
+    const tab =[]
+    const resArt = await location.find().populate('article')
+
+    for (let pas = 0; pas < resArt.length; pas++)
+    {
+      if(resArt[pas].article.statut == "enlocation"){
+        tab.push(resArt[pas])
+      }
+    }
+    
+    res.json(tab)
+  }
+
+  module.exports.update = async (req,res)=>{
+    const resUpdate = await location.findOneAndUpdate({_id:req.params.id},{
+      empreinteur : req.body.empreinteur,
+      contact : req.body.contact
+    },{
+        new : true
+    }).populate('article')
+
+     await articles.findOneAndUpdate({_id:resUpdate.article},{
+      statut : "reservé",
+    },{
+        new : true
+    }).populate('article')
+    
+    res.json(resUpdate)
+}
+

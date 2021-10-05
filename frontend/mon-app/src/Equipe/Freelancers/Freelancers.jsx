@@ -1,13 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
+
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
 
@@ -40,7 +37,7 @@ const Freelancers = (props) => {
     await axios
       .delete("http://localhost:4000/api/freelancer/delete/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = freelancer;
@@ -90,6 +87,7 @@ const Freelancers = (props) => {
             <h3>Freelancers</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>

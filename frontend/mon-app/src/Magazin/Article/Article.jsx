@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
 
 
-const Article = (props) => {
+const Article = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [valuesInput, setValues] = useState({});
   const [depot, setDepot] = useState([]);
@@ -142,6 +141,7 @@ const Article = (props) => {
             <h3>Article</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
@@ -219,6 +219,7 @@ const Article = (props) => {
                 <div class="image__overlay image__overlay--primary">
                   <img
                     src="./image/icons/Group944.png"
+                    alt="erreur"
                     onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",

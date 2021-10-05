@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from 'react-router-dom';
 
 
 import "react-toastify/dist/ReactToastify.css";
@@ -63,7 +61,7 @@ const Recu = (props) => {
 
     await axios.delete("http://localhost:4000/api/recu/delete/" + id)
     .then((verife)=>{
-      if(verife.status !== 200){
+      if(verife.status != 200){
         Swal.fire("Deleted!", "Your file has been deleted.", "error");
       }
       else{
@@ -119,7 +117,7 @@ const Recu = (props) => {
     <div>
                     
                   
-                    {modalIsOpen ==true ? (<ModalAdd recu={recu} setRecu={setRecu} valuesInput={valuesInput} setValues={setValues} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} depot={depot} setDepot={setDepot} client={client} setClient={setClient} />) : (<div></div>)  }      
+                    {modalIsOpen ===true ? (<ModalAdd recu={recu} setRecu={setRecu} valuesInput={valuesInput} setValues={setValues} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} depot={depot} setDepot={setDepot} client={client} setClient={setClient} />) : (<div></div>)  }      
 
        
 
@@ -129,7 +127,7 @@ const Recu = (props) => {
     <h3>Finances</h3>
     <i class="mdi mdi-chevron-right"></i>
 <h3>reçu</h3>
-    <img src="./image/icons/Ellipse206.png" style={{width:"15px",height:"15px"}}></img>
+    <img src="./image/icons/Ellipse206.png" alt="erreur" style={{width:"15px",height:"15px"}}></img>
     </div>
   </div>
   <div className="serhceInput">
@@ -173,10 +171,13 @@ const Recu = (props) => {
           >
 
             <div className="card">
-              <div className="card-body">
+              <div className="card-body" style={{
+                height : "60%"
+              }}>
                 <div class="image__overlay2 image__overlay--primary">
                   <img
                     src="./image/icons/Group944.png"
+                    alt="erreur"
                     onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",
@@ -213,13 +214,16 @@ const Recu = (props) => {
                     <h4>Receveur </h4>
                     <h4>{recu.receveur.nomDepot}</h4>
                   </div>
+                  </div>
+                  </div>
 
-                    <div className="pdf">
+
+                    <div className="pdf" style={{
+                height : "40%"
+              }}>
                        <a href={"http://localhost:4000/api/recu/file/"+recu._id} download target="_blank" ><h5>Télécharger PDF</h5></a>
                     </div>
                    
-                </div>
-              </div>
 
             </div>
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import axios from "axios";
 import Modal from "react-modal";
 
@@ -72,7 +71,7 @@ const ModalAdd = (props) => {
         }}
       >
         <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Ajouter un nouveau Catégorie</h3>
+          <h3 className="font-weight-light">Ajouter un nouvelle Catégorie</h3>
           <br />
           <form
             className="pt-3"
@@ -80,7 +79,7 @@ const ModalAdd = (props) => {
             encType="multipart/form-data"
           >
             <div className="form-group">
-              <h5 className="auth-link text-black">Nom Catégorie</h5>
+              <h5 className="auth-link text-black">Nom de la Catégorie</h5>
               <input
                 type="text"
                 className="form-control"

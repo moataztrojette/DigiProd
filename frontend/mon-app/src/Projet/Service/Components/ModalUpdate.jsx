@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import axios from "axios";
 import Modal from "react-modal";
 
@@ -55,11 +54,11 @@ const ModalUpdate = (props) => {
         }}
       >
         <div className="auth-form-light text-left p-5">
-          <h3 className="font-weight-light">Modifier service</h3>
+          <h3 className="font-weight-light">Modifier un service</h3>
           <br />
           <form className="pt-3" onSubmit={handleFormSubmitUpdate}>
             <div className="form-group">
-              <h5 className="auth-link text-black">Nom Service</h5>
+              <h5 className="auth-link text-black">Nom du Service</h5>
               <input
                 type="text"
                 className="form-control"

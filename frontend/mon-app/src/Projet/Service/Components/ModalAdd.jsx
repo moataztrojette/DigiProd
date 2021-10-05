@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import axios from "axios";
 import Modal from "react-modal";
 
@@ -62,7 +61,7 @@ const ModalAdd = (props) => {
           <br />
           <form className="pt-3" onSubmit={handleFormSubmit}>
             <div className="form-group">
-              <h5 className="auth-link text-black">Nom Service</h5>
+              <h5 className="auth-link text-black">Nom du Service</h5>
               <input
                 type="text"
                 className="form-control"

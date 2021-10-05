@@ -74,6 +74,7 @@ const backImage = ["/image/Article/back1.png","/image/Article/back2.png","/image
                 <div class="image__overlay image__overlay--primary">
                   <img
                     src={"/image/icons/Group944.png"}
+                    alt="erreur"
                     onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",
@@ -94,6 +95,7 @@ const backImage = ["/image/Article/back1.png","/image/Article/back2.png","/image
                 <img
                   src={"http://localhost:4000/api/article/getImage/" + art._id}
                   className="imageDimCat"
+                  alt="erreur"
                 />
                 <div className="title_Article">
                   <h5 style={{

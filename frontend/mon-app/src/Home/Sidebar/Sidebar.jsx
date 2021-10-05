@@ -1,14 +1,13 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom';
-import {  KeyboardArrowRigh} from '@material-ui/icons'
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
         <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <ul className="nav">
         <Link to={'/'}><li className="nav-item">
-            <a className="nav-link" href="#">
-              <img src="/image/icons/icon9.PNG" alt="" srcSet />
+            <a className="nav-link" >
+              <img src="/image/icons/icon9.PNG" alt="erreur" srcSet />
               <span className="menu-title">Dashbored</span>
             </a>
           </li></Link>
@@ -37,7 +36,7 @@ const Sidebar = () => {
                 <li className="nav-item"> <Link to ={'/calendrier'} className="nav-link" href="#">Calendrier</Link></li>
                 <li className="nav-item"> <Link to={'/service'} className="nav-link" href="#">Services</Link></li>
                 <li className="nav-item"> <Link to={'/client'} className="nav-link" href="#">Clients</Link></li>
-                <li className="nav-item"> <a className="nav-link" href="#">Rapport</a></li>
+                <li className="nav-item"> <div className="nav-link" href="#">Rapport</div></li>
               </ul>
             </div>
           </li>
@@ -98,7 +97,7 @@ const Sidebar = () => {
             <div className="collapse" id="ui-basic5">
               <ul className="nav flex-column sub-menu">
                 <li className="nav-item"> <Link to={'/suivie'} className="nav-link" href="#">Suivie</Link></li>
-                <li className="nav-item"> <a className="nav-link" href="#">Rapport</a></li>
+                <li className="nav-item"> <div className="nav-link" href="#">Rapport</div></li>
               </ul>
             </div>
           </li>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -46,7 +44,7 @@ const Client = () => {
     await axios
       .delete("http://localhost:4000/api/client/deleted/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = client;
@@ -61,7 +59,7 @@ const Client = () => {
 
   return (
     <div>
-  {modalIsOpen ==true ? (<ModalAdd client={client} setClient={setClient} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
+  {modalIsOpen == true ? (<ModalAdd client={client} setClient={setClient} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />) : (<div></div>)  }      
   {modalUpdateIsOpen.open ==true ? (<ModalUpdate MyValueInput_update={MyValueInput_update} valuesInput_update={valuesInput_update} setValues_update={setValues_update} client={client} setClient={setClient} modalUpdateIsOpen={modalUpdateIsOpen} setModalUpdateIsOpen={setModalUpdateIsOpen} />) : (<div></div>)  }  
 
  
@@ -73,6 +71,7 @@ const Client = () => {
             <h3>Clients</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>

@@ -45,16 +45,16 @@ const Singup_2 = (props) => {
                   </div>
                   <br />
                   <div class="facebook_google">
-                    <a href="#" class="login100-social-item">
+                    <div class="login100-social-item">
                       <i class="fa fa-facebook-f"></i>
-                    </a>
+                    </div>
 
-                    <a href="#" class="login100-social-item">
+                    <div class="login100-social-item">
                       <img
                         src="https://colorlib.com/etc/lf/Login_v9/images/icons/icon-google.png"
                         alt="GOOGLE"
                       />
-                    </a>
+                    </div>
                   </div>
                 </div>
                 <form action="#" onSubmit={handleFormSubmit}>

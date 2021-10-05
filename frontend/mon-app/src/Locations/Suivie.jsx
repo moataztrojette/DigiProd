@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
-const Suivie = (props) => {
+const Suivie = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [valuesInput, setValues] = useState({});
   const [selectArticle, setSelectArticle] = useState([]);
   const [stateArticle,setArticle] = useState([])
-
+  const [valuesInput_update, setValues_update] = useState({});
+  const [modalUpdateIsOpen, setModalUpdateIsOpen] = useState({
+    open: false,
+    info: {},
+  });
   const color = ["#FFE8E3", "#D7F6FE", "#E1E3E8", "#F9F6DC"];
 
   useEffect(() => {
@@ -38,6 +41,39 @@ const Suivie = (props) => {
     res[event.target.name] = event.target.value;
     setValues(res);
   };
+
+  const MyValueInput_update = (event) => {
+    let res = valuesInput_update;
+    setValues_update({ ...res, [event.target.name]: event.target.value });
+  };
+
+
+  const handleFormSubmitUpdate = async (event) => {
+    try {
+      event.preventDefault();
+      const dataClient = await axios.put(
+        "http://localhost:4000/api/location/update/" +valuesInput_update._id,
+        valuesInput_update
+      );
+
+      toast("Location a été Modifiér avec success ", {
+        type: "success",
+      });
+
+      const resFind = stateArticle.find(
+        (element) => element._id === valuesInput_update._id
+      );
+      const newState = stateArticle;
+      const index = stateArticle.indexOf(resFind);
+      newState[index] = dataClient.data;
+      setArticle(newState);
+    } catch (error) {
+      toast(error.response.data, {
+        type: "error",
+      });
+    }
+  }
+
 
 
   const handleFormSubmit = async (event) => {
@@ -94,17 +130,22 @@ const Suivie = (props) => {
       });
   };
 
-  const ArticlesLoués = async (event) => {
-    const filter = await axios.get(
-      "http://localhost:4000/api/facture/filter/etatfacture/" +
-        event.target.value
-    );
-    setArticle(filter.data);
-  };
 
-  const Articlespropres = ()=>{
 
+  const ArticleLoué = ()=>{
+         axios.get("http://localhost:4000/api/location/article/loue").then((articleLoue)=>{
+          setArticle(articleLoue.data)
+        })
   }
+
+  const ArticlesNonLoué = ()=>{
+     axios.get("http://localhost:4000/api/location/article/nonloue").then((articleNonLoue)=>{
+      setArticle(articleNonLoue.data)
+    })
+}
+
+
+
   return (
     <div>
       <Modal
@@ -196,6 +237,93 @@ const Suivie = (props) => {
       </Modal>
       <ToastContainer></ToastContainer>
 
+
+      <Modal
+    isOpen={modalUpdateIsOpen.open}
+    shouldCloseOnOverlayClick={false}
+    onRequestClose={() => {
+      setModalUpdateIsOpen({
+        open: false,
+        info: {},
+      });
+      setValues_update({});
+    }}
+    style={{
+      content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+      },
+      overlay : {
+        backgroundColor:"rgba(206, 239, 248,0.8)",
+      }
+    }}
+  >
+    <div className="auth-form-light text-left p-5">
+      <br />
+      <form className="pt-3" onSubmit={handleFormSubmitUpdate}>
+        <div className="form-group">
+          <h5 className="auth-link text-black">Empreinteur</h5>
+          <input
+            type="text"
+            className="form-control"
+            id="exampleInputUsername2"
+            name="empreinteur"
+            required
+            value={valuesInput_update.empreinteur}
+            onChange={MyValueInput_update}
+          />
+        </div>
+        <h5 className="auth-link text-black">Contact  </h5>
+
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            id="exampleInputUsername2"
+            name="contact"
+            onChange={MyValueInput_update}
+            required
+            value={valuesInput_update.contact}
+          />
+        </div>
+
+     
+
+        <div className="mb-2">
+          <button
+            type="submit"
+            className="btn btn-block btn-facebook auth-form-btn"
+          >
+            <i className="mdi mr-2" />
+            Terminer{" "}
+          </button>
+        </div>
+
+        <div className="mb-2">
+          <button
+            type="button"
+            onClick={() =>
+              setModalUpdateIsOpen({
+                open: false,
+                info: {},
+              })
+            }
+            className="btn btn-block btn-facebook auth-form-btn"
+          >
+            <i className="mdi mr-2" />
+            Retour{" "}
+          </button>
+        </div>
+      </form>
+    </div>
+  </Modal>
+
+
+
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">
@@ -204,21 +332,22 @@ const Suivie = (props) => {
             <h3>Factures</h3>
             <img
               src="./image/icons/Ellipse206.png"
+              alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>
         </div>
         <div className="serhceInput">
-          <button className="btn_filter" value="entrant"  onClick={Articlespropres}>
-            Articles propres 
+          <button className="btn_filter" value="entrant"  onClick={ArticleLoué}>
+            Articles Loué 
           </button>
-          <button className="btn_filter" value="sortant" onClick={ArticlesLoués} >
-            Articles Loués
+          <button className="btn_filter" value="sortant" onClick={ArticlesNonLoué} >
+            Articles Non Loués
           </button>
         </div>
       </div>
       <div className="image_facture">
-        <img src="/image/Location/Groupe934.png" className="image_fac"></img>
+        <img src="/image/Location/Groupe934.png" alt="erreur" className="image_fac"></img>
       </div>
 
       <div className="serhceInput" style={{ marginLeft: "64%" }}>
@@ -331,6 +460,19 @@ const Suivie = (props) => {
                       });
                     }}
                   />     </td>
+                  <td>
+                  <img
+                    src="/image/icons/update_icons.png"
+                    onClick={() => {
+                      setModalUpdateIsOpen({
+                        open: true,
+                        info: art,
+                      });
+                      setValues_update(art);
+                    }}
+                    alt=""
+                  />
+                  </td>
               </tr>
 
               <br />

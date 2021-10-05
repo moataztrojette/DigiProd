@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import ModalAdd from "./Components/ModalAdd";
 
 
-const Categorie = (props) => {
+const Categorie = () => {
   Modal.setAppElement("#root");
 
   const [categorie, setCategorie] = useState([]);
@@ -51,9 +50,10 @@ const Categorie = (props) => {
             <div className="title_categorie_icons">
               <h3>Magazin</h3>
               <i class="mdi mdi-chevron-right"></i>
-              <h3>Catégorie</h3>
+              <h3>Catégories</h3>
               <img
                 src="./image/icons/Ellipse206.png"
+                alt="erreur"
                 style={{ width: "15px", height: "15px" }}
               ></img>
             </div>
@@ -81,6 +81,7 @@ const Categorie = (props) => {
                 <div class="image__overlay2 image__overlay--primary">
                   <img
                     src="./image/icons/Group944.png"
+                    alt="erreur"
                     onClick={() => {
                       Swal.fire({
                         title: "Êtes - vous sûr ?",

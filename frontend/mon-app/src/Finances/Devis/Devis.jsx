@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { toast, ToastContainer } from "react-toastify";
+
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 import ModalAdd from "./Components/ModalAdd";
@@ -20,7 +18,7 @@ const Devis = (props) => {
   
 
   useEffect(() => {
-    const data = axios
+    axios
       .get("http://localhost:4000/api/devis/findall")
       .then((devis) => {
         setDevis(devis.data);
@@ -58,7 +56,7 @@ const Devis = (props) => {
     await axios
       .delete("http://localhost:4000/api/devis/delete/" + id)
       .then((verife) => {
-        if (verife.status !== 200) {
+        if (verife.status != 200) {
           Swal.fire("Deleted!", "Your file has been deleted.", "error");
         } else {
           const preventStatu = devis;
@@ -94,7 +92,7 @@ const Devis = (props) => {
   return (
     <div>
      
-   {modalIsOpen ==true ? (<ModalAdd client={client} setClient={setClient} devis={devis} setDevis={setDevis} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} valuesInput={valuesInput} setValues={setValues} />) : (<div></div>)  }      
+   {modalIsOpen === true ? (<ModalAdd client={client} setClient={setClient} devis={devis} setDevis={setDevis} modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} valuesInput={valuesInput} setValues={setValues} />) : (<div></div>)  }      
 
       <div className="content_Article">
         <div className="categorie_article">
@@ -103,7 +101,7 @@ const Devis = (props) => {
             <i class="mdi mdi-chevron-right"></i>
             <h3>Devis</h3>
             <img
-              src="./image/icons/Ellipse206.png"
+              src="./image/icons/Ellipse206.png" alt="erreur"
               style={{ width: "15px", height: "15px" }}
             ></img>
           </div>

@@ -8,7 +8,9 @@ module.exports.add = async (req,res)=>{
         end: req.body.end,
         pourcentage : req.body.pourcentage,
         heureDebut : req.body.heureDebut,
-        heureFin : req.body.heureFin
+        heureFin : req.body.heureFin,
+        id_user:req.info_user._id
+
     })
     await new_calendrier.save()
     res.status(200).send(new_calendrier)

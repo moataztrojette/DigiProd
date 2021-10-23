@@ -23,8 +23,6 @@
       })
   
       req.session.token  = token
-      
-
       res.json({
   
         _id : user._id,

@@ -77,30 +77,38 @@ const Suivie = () => {
 
 
   const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("article", valuesInput.article);
-    formData.append("empreinteur", valuesInput.empreinteur);
-    formData.append("contact", valuesInput.contact);
-
-
-    const data = await axios.post(
-      "http://localhost:4000/api/location/post",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    try{
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append("article", valuesInput.article);
+      formData.append("empreinteur", valuesInput.empreinteur);
+      formData.append("contact", valuesInput.contact);
+  
+  
+      const data = await axios.post(
+        "http://localhost:4000/api/location/post",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
+      toast("location a été ajouter avec success ", {
+        type: "success",
+      });
+      const prevStateArt = stateArticle;
+      prevStateArt.push(data.data);
+      setArticle(prevStateArt);
+      console.log(valuesInput)
+    }catch(error){
+      if (error.response.data) {
+        toast(error.response.data, {
+          type: "error",
+        });
       }
-    );
-
-    toast("location a été ajouter avec success ", {
-      type: "success",
-    });
-    const prevStateArt = stateArticle;
-    prevStateArt.push(data.data);
-    setArticle(prevStateArt);
-    console.log(valuesInput)
+    }
   };
 
   const rechercheArticle = async (event) => {
@@ -126,6 +134,7 @@ const Suivie = () => {
           const new_state = prevState.filter((art) => art._id !== id);
           setArticle(new_state);
           Swal.fire("location!", "Membre a été supprimé", "success");
+          setValues({})
         }
       });
   };
@@ -350,19 +359,12 @@ const Suivie = () => {
         <img src="/image/Location/Groupe934.png" alt="erreur" className="image_fac"></img>
       </div>
 
-      <div className="serhceInput" style={{ marginLeft: "64%" }}>
+      <div className="serhceInput" style={{ marginLeft: "80%" }}>
         <form className="d-flex align-items-center h-100" action="#">
           <div className="input-group">
             <div>
               <i className="input-group-text border-0 mdi mdi-magnify" />
             </div>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="chercher article"
-              name="serche"
-              onChange={rechercheArticle}
-            />
           </div>
         </form>
 

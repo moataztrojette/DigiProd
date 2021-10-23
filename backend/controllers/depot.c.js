@@ -18,7 +18,9 @@ module.exports.post = async (req,res)=>{
             nomDepot : req.body.nomDepot,
             localisation : req.body.localisation,
             responsable : req.body.responsable,
-            imageDepot : nm 
+            imageDepot : nm,
+            id_user:req.info_user._id
+ 
         })
         await newDepot.save()
         const newImage = new images({

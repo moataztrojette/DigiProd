@@ -22,28 +22,37 @@ const ModalAdd = (props) => {
       };
     
       const handleFormSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append("description", valuesInput.description);
-        formData.append("date", valuesInput.date);
-        formData.append("fichier", valuesInput.fichier);
-    
-        const data = await axios.post(
-          "http://localhost:4000/api/bibliotheque/post",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
+        try{
+          event.preventDefault();
+          const formData = new FormData();
+          formData.append("description", valuesInput.description);
+          formData.append("date", valuesInput.date);
+          formData.append("fichier", valuesInput.fichier);
+      
+          const data = await axios.post(
+            "http://localhost:4000/api/bibliotheque/post",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+      
+          toast("Documents  a été ajouter avec success ", {
+            type: "success",
+          });
+          const preventState = props.bibliotheque;
+          preventState.push(data.data);
+          props.setBibliotheque(preventState);
+  
+        }catch(error){
+          if (error.response.data) {
+            toast(error.response.data, {
+              type: "error",
+            });
           }
-        );
-    
-        toast("Documents  a été ajouter avec success ", {
-          type: "success",
-        });
-        const preventState = props.bibliotheque;
-        preventState.push(data.data);
-        props.setBibliotheque(preventState);
+        }
       };
 
     return ( <div>

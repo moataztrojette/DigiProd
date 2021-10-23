@@ -5,7 +5,9 @@ const article = new mongoose.Schema({
   quantite: { type: Number },
   localisation: { type : mongoose.Types.ObjectId , ref : 'depots' },
   statut: { type: String },
-  imageArticle : {type:String}
+  imageArticle : {type:String},
+  id_user:{type:mongoose.Types.ObjectId , ref:"users"}
+
 });
 
 const articles = mongoose.model("articles", article);

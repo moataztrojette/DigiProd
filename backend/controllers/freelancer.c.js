@@ -2,16 +2,28 @@ const freelancers = require("../models/freelancer.model")
 
 module.exports.post = async (req,res)=>{
 
+    const verife =await  freelancers.findOne({
+        email : req.body.email
+    })
+    if(verife){
+        return res.status(422).send("Freelancer c déjà ajouté ")
+    }
+else{
     const newFreelancer = new freelancers({
         
         nom : req.body.nom,
+        email:req.body.email,
         specialite : req.body.specialite,
         fichier : req.files.fichier.data,
-        typeFile : req.files.fichier.mimetype
+        typeFile : req.files.fichier.mimetype,
+        id_user:req.info_user._id
+
     })
     await newFreelancer.save()
 
     res.status(200).send(newFreelancer)
+}
+    
 }
 
 module.exports.pdf = async(req,res)=>{

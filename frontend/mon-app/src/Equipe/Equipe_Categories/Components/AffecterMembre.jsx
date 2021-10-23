@@ -96,7 +96,7 @@ const AffecterMembre = (props) => {
         }}
       >
         <div className="auth-form-light text-left p-4">
-          <h3 className="font-weight-light">Affecter freelancer à équipe</h3>
+          <h3 className="font-weight-light">Affecter freelancer à une équipe</h3>
           <br />
           <form
             className="pt-3"

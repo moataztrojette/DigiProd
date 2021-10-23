@@ -123,7 +123,7 @@ const Dashbored = () => {
          
 
 
-    <h1>Dashbored</h1>
+    <h1>Dashboard</h1>
 
     <div style={{
         display:"flex",
@@ -137,7 +137,7 @@ const Dashbored = () => {
     data={{
     labels:depot,
     datasets: [{
-        label: "nombre d'article pour chaque depot",
+        label: "nombre d'article pour chaque dépôt",
         data: data,
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -240,7 +240,7 @@ const Dashbored = () => {
     data={{
     labels:dateFacture,
     datasets: [{
-        label: 'Prix Facture Entrant (DT)',
+        label: 'Prix facture entrante (DT)',
         data:prixFacture ,
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -289,7 +289,7 @@ const Dashbored = () => {
     data={{
     labels:dateFactureSortant,
     datasets: [{
-        label: 'Prix Facture Sortant (DT)',
+        label: 'Prix facture sortante (DT)',
         data:prixFactureSortant ,
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',

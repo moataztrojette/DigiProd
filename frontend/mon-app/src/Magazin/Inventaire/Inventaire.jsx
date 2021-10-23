@@ -59,7 +59,7 @@ const Inventaire = () => {
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">
-            <h3>Magazin</h3>
+            <h3>Magasin</h3>
             <i class="mdi mdi-chevron-right"></i>
             <h3>Inventaire</h3>
             <img

@@ -10,7 +10,9 @@ module.exports.post = async (req,res)=>{
     const newService = new services({
         nomService : req.body.nomService,
         description : req.body.description,
-        contact : req.body.contact
+        contact : req.body.contact,
+        id_user:req.info_user._id
+
     })
     await newService.save()
     res.status(200).send(newService)

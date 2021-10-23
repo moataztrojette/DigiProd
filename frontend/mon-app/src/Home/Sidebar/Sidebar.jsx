@@ -8,13 +8,13 @@ const Sidebar = () => {
         <Link to={'/'}><li className="nav-item">
             <a className="nav-link" >
               <img src="/image/icons/icon9.PNG" alt="erreur" srcSet />
-              <span className="menu-title">Dashbored</span>
+              <span className="menu-title">Dashboard</span>
             </a>
           </li></Link>
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <img src="/image/icons/icon1.PNG" alt="" srcSet />
-              <span className="menu-title">Magazin</span>
+              <span className="menu-title">Magasin</span>
               <i className="menu-arrow" />
             </a>
             <div className="collapse" id="ui-basic">
@@ -48,7 +48,7 @@ const Sidebar = () => {
             </a>
             <div className="collapse" id="ui-basic3">
               <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link to ={'/equipe'} className="nav-link" href="#">Equipe / catégories</Link></li>
+                <li className="nav-item"> <Link to ={'/equipe'} className="nav-link" href="#">Equipe / Employés </Link></li>
                 <li className="nav-item"> <Link to ={'/freelancers'} className="nav-link" href="#">Freelances</Link></li>
               </ul>
             </div>

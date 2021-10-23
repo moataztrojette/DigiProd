@@ -14,31 +14,41 @@ const ModalAdd = (props) => {
       };
   
       const handleFormSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append("nomArticle", props.valuesInput.nomArticle);
-        formData.append("categorieArticle", props.valuesInput.categorieArticle);
-        formData.append("quantite", props.valuesInput.quantite);
-        formData.append("localisation", props.valuesInput.localisation);
-        formData.append("statut", props.valuesInput.statut);
-        formData.append("imageArticle", props.valuesInput.imageArticle);
-    
-        const data = await axios.post(
-          "http://localhost:4000/api/article/post",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
+        try{
+          event.preventDefault();
+          const formData = new FormData();
+          formData.append("nomArticle", props.valuesInput.nomArticle);
+          formData.append("categorieArticle", props.valuesInput.categorieArticle);
+          formData.append("quantite", props.valuesInput.quantite);
+          formData.append("localisation", props.valuesInput.localisation);
+          formData.append("statut", props.valuesInput.statut);
+          formData.append("imageArticle", props.valuesInput.imageArticle);
+      
+          const data = await axios.post(
+            "http://localhost:4000/api/article/post",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+      
+          toast("Article a été ajouter avec success ", {
+            type: "success",
+          });
+          const prevStateArt = props.allArticle;
+          prevStateArt.push(data.data);
+          console.log(data.data)
+          props.setArticle(prevStateArt);
+        }catch(error){
+          if (error.response.data) {
+            toast(error.response.data, {
+              type: "error",
+            });
           }
-        );
-    
-        toast("Article a été ajouter avec success ", {
-          type: "success",
-        });
-        const prevStateArt = props.allArticle;
-        prevStateArt.push(data.data);
-        props.setArticle(prevStateArt);
+        }
+      
       };
  
 

@@ -65,7 +65,7 @@ const AddEquipe = (props) => {
           }}
         >
           <div className="auth-form-light text-left p-4">
-            <h3 className="font-weight-light">Ajouter un Equipe</h3>
+            <h3 className="font-weight-light">Ajouter une Equipe</h3>
             <br />
             <form
               className="pt-3"

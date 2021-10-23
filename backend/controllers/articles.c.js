@@ -3,7 +3,12 @@ const categories = require("../models/categorieArticle.model")
 const images = require("../models/image.model");
 
 module.exports.post = async (req, res) => {
-  
+  const verife =await  articles.findOne({nomArticle : req.body.nomArticle}) 
+    if(verife){
+        return res.status(422).send("Article c déjà ajouté !");
+    }
+else
+{
   const nm = req.files.imageArticle.name;
   const newArticle = new articles({
     nomArticle: req.body.nomArticle,
@@ -11,7 +16,9 @@ module.exports.post = async (req, res) => {
     quantite: req.body.quantite,
     localisation: req.body.localisation,
     statut: req.body.statut,
-    imageArticle : nm
+    imageArticle : nm,
+    id_user:req.info_user._id
+
   });
   await newArticle.save()
 
@@ -25,6 +32,7 @@ module.exports.post = async (req, res) => {
 
   const pop = await  articles.populate(newArticle,{ path : 'localisation'})
   res.status(200).json(pop);
+}
 };
 
 module.exports.getImage = async (req, res) => {

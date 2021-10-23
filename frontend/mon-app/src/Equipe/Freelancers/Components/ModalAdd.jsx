@@ -24,6 +24,7 @@ const ModalAdd = (props) => {
       };
     
       const handleFormSubmit = async (event) => {
+      try{
         event.preventDefault();
         const formData = new FormData();
     
@@ -32,6 +33,8 @@ const ModalAdd = (props) => {
           formData.append("specialite", spec);
         });
         formData.append("fichier", valuesInput.fichier);
+        formData.append("email", valuesInput.email);
+        
         if(stateSpecialite.length>0)
         {
             const data = await axios.post(
@@ -58,7 +61,14 @@ const ModalAdd = (props) => {
                   type: "error",
                 });
               }
-        
+
+      }catch(error){
+        if (error.response.data) {
+          toast(error.response.data, {
+            type: "error",
+          });
+        }
+      }        
         
       };
 
@@ -109,6 +119,20 @@ const ModalAdd = (props) => {
                 onChange={MyValueInput}
               />
             </div>
+
+            <div className="form-group">
+              <h5 className="auth-link text-black">Email</h5>
+              <input
+                type="email"
+                className="form-control"
+                id="exampleInputUsername2"
+                name="email"
+                required
+                placeholder="Email"
+                onChange={MyValueInput}
+              />
+            </div>
+
 
             <div className="form-group">
               <h5 className="auth-link text-black">CV(PDF) </h5>

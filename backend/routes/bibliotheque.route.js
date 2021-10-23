@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 const {post,pdf,findall,findDate,Filteritems,serche,deleted} = require('../controllers/bibliotheque.c')
+const { isLogin } = require("../middleware/auth")
 
-router.post('/post',post)
+router.post('/post',isLogin,post)
 router.get('/findall',findall)
 router.get('/finddate',findDate)
 router.get('/filter/:date',Filteritems)

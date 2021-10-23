@@ -136,7 +136,7 @@ const Article = () => {
           }}
         >
           <div className="title_categorie_icons">
-            <h3>Magazin</h3>
+            <h3>Magasin</h3>
             <i class="mdi mdi-chevron-right"></i>
             <h3>Article</h3>
             <img
@@ -152,7 +152,7 @@ const Article = () => {
               name="categorieArticle"
               onChange={Filteritems}
             >
-              <option value="all">Tous les catégories</option>
+              <option value="all">Toutes les catégories</option>
 
               {categorie.map((cat) => (
                 <option value={cat._id}>{cat.nomCategorie}</option>

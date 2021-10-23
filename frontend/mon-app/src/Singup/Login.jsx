@@ -14,6 +14,7 @@ const Login = (props) => {
   const MyValueInput = (event) => {
     let res = valueInput;
     res[event.target.name] = event.target.value;
+    setInput(res)
   };
   const handleFormSubmit = async (event) => {
     event.preventDefault();

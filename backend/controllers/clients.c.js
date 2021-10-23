@@ -6,6 +6,7 @@ const commande = require("../models/commande.model")
 
 
 module.exports.post = async (req,res)=>{
+
     const verife =await  clients.findOne({
         adresseEmail : req.body.adresseEmail
     })
@@ -15,9 +16,12 @@ module.exports.post = async (req,res)=>{
     const newClient = new clients({
         nomSociete : req.body.nomSociete,
         adresseEmail : req.body.adresseEmail,
-        telephone : req.body.telephone
+        telephone : req.body.telephone,
+        id_user:req.info_user._id
     })
+    console.log(req.info_user)
     await newClient.save()
+
     res.status(200).send(newClient)
 }
 

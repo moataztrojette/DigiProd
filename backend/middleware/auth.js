@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
 const users = require("../models/user.model")
 const  bcrypt = require('bcryptjs');
+
 module.exports.isLogin = async (req,res,next)=>{
-    
     const token = req.session.token
     jwt.verify(token,process.env.SECURITE,(error,decoded)=>{
       if(error){

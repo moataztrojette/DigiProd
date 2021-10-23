@@ -182,7 +182,7 @@ const Facture = (props) => {
               <ul class="content_Facture" key={fact._id}>
                 <li>{fact.client.nomSociete}</li>
                 <li>{fact.description}</li>
-                <li>{fact.prix}DT</li>
+                <li>{fact.prix} DT</li>
                 <li>{fact.date}</li>
                 <div style={{ marginBottom: 15, marginRight: 15 }}>
                   <a

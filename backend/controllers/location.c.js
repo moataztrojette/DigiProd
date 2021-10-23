@@ -3,6 +3,14 @@ const location = require("../models/location.model");
 
 module.exports.post = async (req, res) => {
   
+  const verife =await  location.findOne({
+    article : req.body.article
+})
+if(verife){
+    return res.status(422).send(" c déjà loué ")
+}
+else{
+
   const new_location = new location({
     article: req.body.article,
     empreinteur :req.body.empreinteur,
@@ -15,12 +23,15 @@ module.exports.post = async (req, res) => {
   },{
       new : true
   })
+
   }
 
   await new_location.save()
   const pop = await  location.populate(new_location,{ path : 'article'})
 
-  res.status(200).json(pop);
+  res.status(200).json(pop);  
+}
+
 };
 module.exports.findall = async (req, res) => {
 
@@ -56,7 +67,16 @@ module.exports.findall = async (req, res) => {
 
     
   module.exports.deleted = async (req, res) => {
-    await location.findByIdAndDelete({ _id: req.params.id });
+    
+    const art = await location.findOne({_id:req.params.id})
+
+    await location.findByIdAndDelete({ _id: req.params.id });  
+    await articles.findOneAndUpdate({_id:art.article},{
+      statut : "enlocation",
+  },{
+      new : true
+  })
+
     res.status(200).send("deleted");
   };
 

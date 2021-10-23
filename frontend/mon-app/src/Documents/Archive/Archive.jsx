@@ -99,13 +99,7 @@ const Archive = () => {
             </div>
           </form>
 
-          <button
-            type="button"
-            className="btn btn-primary-color_inv"
-            onClick={() => setModalIsOpen(true)}
-          >
-            Nouvel archive +{" "}
-          </button>
+      
         </div>
       </div>
 

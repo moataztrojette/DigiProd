@@ -48,7 +48,7 @@ const Categorie = () => {
         <div className="categorie_article">
           <div className="categorie_liste">
             <div className="title_categorie_icons">
-              <h3>Magazin</h3>
+              <h3>Magasin</h3>
               <i class="mdi mdi-chevron-right"></i>
               <h3>Catégories</h3>
               <img

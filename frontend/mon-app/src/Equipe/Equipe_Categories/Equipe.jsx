@@ -284,7 +284,7 @@ const Bibliotheque = (props) => {
             className="btn btn-primary-color_inv"
             onClick={() => setModalIsOpen(true)}
           >
-            Nouveau Equipe +{" "}
+            Nouvelle Equipe +{" "}
           </button>
         </div>
       </div>

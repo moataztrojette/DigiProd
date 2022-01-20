@@ -256,7 +256,7 @@ const Bibliotheque = (props) => {
           <div className="title_categorie_icons">
             <h3>Equipe</h3>
             <i class="mdi mdi-chevron-right"></i>
-            <h3>Catégories</h3>
+            <h3>Equipe/Employés</h3>
             <img
               src="./image/icons/Ellipse206.png" alt="erreur"
               style={{ width: "15px", height: "15px" }}

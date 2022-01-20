@@ -7291,24 +7291,8 @@ input[type="button"].btn-block {
   color: #fff;
 }
 
-.card {
-  position: relative;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 20px;
-}
+
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -18605,15 +18589,15 @@ dl li {
 .categorie_liste h3 {
   font-weight: bold;
 }
-.title_categorie_icons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  grid-gap: 10px;
-}
-.title_categorie_icons h3 {
-  font-weight: bold;
-}
+  .title_categorie_icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    grid-gap: 10px;
+  }
+  .title_categorie_icons h3 {
+    font-weight: bold;
+  }
 .btn-primary-color_inv {
   color: #fff;
   background-color: #fc7757;

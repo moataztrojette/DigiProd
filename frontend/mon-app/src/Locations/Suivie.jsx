@@ -336,9 +336,9 @@ const Suivie = () => {
       <div className="content_Article">
         <div className="categorie_article">
           <div className="title_categorie_icons">
-            <h3>Finances</h3>
+            <h3>Locations</h3>
             <i class="mdi mdi-chevron-right"></i>
-            <h3>Factures</h3>
+            <h3>Suivie</h3>
             <img
               src="./image/icons/Ellipse206.png"
               alt="erreur"

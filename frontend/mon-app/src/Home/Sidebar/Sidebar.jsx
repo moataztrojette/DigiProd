@@ -25,21 +25,7 @@ const Sidebar = () => {
               </ul>
             </div>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-              <img src="/image/icons/icon2.PNG" alt="" srcSet />
-              <span className="menu-title">Projet</span>
-              <i className="menu-arrow" />
-            </a>
-            <div className="collapse" id="ui-basic2">
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link to ={'/calendrier'} className="nav-link" href="#">Calendrier</Link></li>
-                <li className="nav-item"> <Link to={'/service'} className="nav-link" href="#">Services</Link></li>
-                <li className="nav-item"> <Link to={'/client'} className="nav-link" href="#">Clients</Link></li>
-                <li className="nav-item"> <div className="nav-link" href="#">Rapport</div></li>
-              </ul>
-            </div>
-          </li>
+         
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
               <img src="/image/icons/icon3.PNG" alt="" srcSet />
@@ -67,12 +53,7 @@ const Sidebar = () => {
               </ul>
             </div>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="pages/tables/basic-table.html">
-              <img src="/image/icons/icon5.PNG" alt="" srcSet />
-              <span className="menu-title">Matiéres</span>
-            </a>
-          </li>
+    
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
               <img src="/image/icons/icon6.PNG" alt="" srcSet />
@@ -88,6 +69,22 @@ const Sidebar = () => {
               </ul>
             </div>
           </li>
+
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+              <img src="/image/icons/icon2.PNG" alt="" srcSet />
+              <span className="menu-title">Projet</span>
+              <i className="menu-arrow" />
+            </a>
+            <div className="collapse" id="ui-basic2">
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item"> <Link to ={'/calendrier'} className="nav-link" href="#">Calendrier</Link></li>
+                <li className="nav-item"> <Link to={'/service'} className="nav-link" href="#">Services</Link></li>
+                <li className="nav-item"> <Link to={'/client'} className="nav-link" href="#">Clients</Link></li>
+              </ul>
+            </div>
+          </li>
+
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic5">
               <img src="/image/icons/icon4.PNG" alt="" srcSet />
@@ -97,16 +94,10 @@ const Sidebar = () => {
             <div className="collapse" id="ui-basic5">
               <ul className="nav flex-column sub-menu">
                 <li className="nav-item"> <Link to={'/suivie'} className="nav-link" href="#">Suivie</Link></li>
-                <li className="nav-item"> <div className="nav-link" href="#">Rapport</div></li>
               </ul>
             </div>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href aria-expanded="false" aria-controls="general-pages2">
-              <img src="/image/icons/icon8.PNG" alt="" srcSet />
-              <span className="menu-title">Paramètres</span>
-            </a>
-          </li>
+    
         </ul>
       </nav>
       );

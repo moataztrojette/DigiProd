@@ -68,8 +68,8 @@ function App() {
 
             <Route exact path="/" component={Dashbored} />
           </Home>
-          <Route path="/not-found" component={NotFound} />
-          <Redirect to="/not-found" />
+          <Route path="/notfound" component={NotFound} />
+          <Redirect to="/notfound" />
         </Switch>
       </BrowserRouter>
     </div>

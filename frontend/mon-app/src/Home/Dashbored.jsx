@@ -69,8 +69,8 @@ const Dashbored = () => {
             setDepot(nameDepot)
             setCategorie(categorie)
             setArticle(nbArticle)
-            //console.log(nbArticle)
-            //console.log(data
+            console.log(depot)
+            console.log(data)
         })
 
 
